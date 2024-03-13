@@ -1,3 +1,7 @@
+using Examination_System_Web_App.Models;
+using Examination_System_Web_App.Repositories;
+using Microsoft.EntityFrameworkCore;
+
 namespace Examination_System_Web_App
 {
     public class Program
@@ -8,6 +12,13 @@ namespace Examination_System_Web_App
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+
+            builder.Services.AddDbContext<ExamSysContext>(optionsBuilder =>
+            {
+                optionsBuilder.UseSqlServer("Data Source=tcp:pdsqlproject.database.windows.net,1433;Initial Catalog=ExamSys;User ID=sqladmin@pdsqlproject;Password=Adminpass_123;Connect Timeout=1200");
+            });
+
+            builder.Services.AddScoped<IQuestionRepository, QuestionRepository>();
 
             var app = builder.Build();
 
