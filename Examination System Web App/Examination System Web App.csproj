@@ -5,6 +5,7 @@
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
     <RootNamespace>Examination_System_Web_App</RootNamespace>
+    <UserSecretsId>bf45e440-536b-4feb-9668-de9d008a9d56</UserSecretsId>
   </PropertyGroup>
 
   <ItemGroup>
