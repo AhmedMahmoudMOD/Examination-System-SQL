@@ -1,4 +1,32 @@
 ﻿@{
     Layout = "~/Views/Shared/_LayoutBS.cshtml";
+
+    SelectList deptList = new SelectList(ViewBag.Depts, "dept_no", "dept_name");
 }
+@model Course
+
+<div>
+    <select class="form-control" asp-items="deptList"></select>
+</div>
+<div>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>
+                    Course Name
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var item in ViewBag.Courses as List<Course>)
+            {
+                <tr>
+                    <td>
+                        @item.crs_name
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
 

@@ -19,6 +19,7 @@ namespace Examination_System_Web_App
             });
 
             builder.Services.AddScoped<IQuestionRepository, QuestionRepository>();
+            builder.Services.AddScoped<IInstructorRepository, InstructorRepository>();
 
             var app = builder.Build();
 
