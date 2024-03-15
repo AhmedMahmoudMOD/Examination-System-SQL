@@ -1,33 +1,39 @@
-﻿<div>
+﻿@model List<Std_course>
+
+<h1>Course Grades</h1>
+
+<div>
     <table class="table table-bordered">
         <thead>
             <tr>
                 <th>
-                    ID
+                    Student Name
                 </th>
                 <th>
-                    Name
+                    Grade
                 </th>
                 <th>
-
+                    Status
                 </th>
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in ViewBag.Courses as List<Course>)
+            @foreach (var item in Model)
             {
                 <tr>
                     <td>
-                        @item.crs_id
+                        @(item.std.std_fname + " " + @item.std.std_lname)
                     </td>
                     <td>
-                        @item.crs_name
+                        @item.grade
                     </td>
                     <td>
-                        <a onclick="getGrades(deptSelector.value,@item.crs_id)" class="btn btn-primary">Results</a>
+                        @item.status
                     </td>
                 </tr>
             }
         </tbody>
     </table>
 </div>
+
+

@@ -7,10 +7,12 @@ namespace Examination_System_Web_App.Controllers
     public class InstructorController : Controller
     {
         private readonly IInstructorRepository instructorRepository;
+        private readonly IStudentCourseRepository studentCourseRepository;
 
-        public InstructorController(IInstructorRepository instructorRepository)
+        public InstructorController(IInstructorRepository instructorRepository , IStudentCourseRepository studentCourseRepository)
         {
             this.instructorRepository = instructorRepository;
+            this.studentCourseRepository = studentCourseRepository;
         }
         public IActionResult Index()
         {
@@ -29,6 +31,13 @@ namespace Examination_System_Web_App.Controllers
             int stDeptNo = deptNo;
             ViewBag.Courses = instructorRepository.GetCourses(InsID, stDeptNo);
             return PartialView("_CoursesTablePartial");
+        }
+
+        public IActionResult GetCourseGrades(int crsId,int deptNo)
+        {
+            var List = studentCourseRepository.GetByCourseID(crsId,deptNo);
+
+            return PartialView("_CouesesGradesPartial", List);
         }
     }
 }
