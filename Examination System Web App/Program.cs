@@ -11,6 +11,7 @@ namespace Examination_System_Web_App
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            //commit 
             builder.Services.AddControllersWithViews();
 
             builder.Services.AddDbContext<ExamSysContext>(optionsBuilder =>
