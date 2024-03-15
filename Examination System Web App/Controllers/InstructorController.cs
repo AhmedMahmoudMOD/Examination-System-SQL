@@ -21,5 +21,14 @@ namespace Examination_System_Web_App.Controllers
             ViewBag.Courses = instructorRepository.GetCourses(InsID,stDeptNo);
             return View();
         }
+
+        public IActionResult RenderCourses(int deptNo)
+        {
+
+            int InsID = 1;
+            int stDeptNo = deptNo;
+            ViewBag.Courses = instructorRepository.GetCourses(InsID, stDeptNo);
+            return PartialView("_CoursesTablePartial");
+        }
     }
 }

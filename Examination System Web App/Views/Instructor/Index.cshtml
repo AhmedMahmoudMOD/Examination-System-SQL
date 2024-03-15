@@ -6,27 +6,43 @@
 @model Course
 
 <div>
-    <select class="form-control" asp-items="deptList"></select>
+    <select class="form-control" asp-items="deptList" onchange="changeCourses(this.value)"></select>
 </div>
-<div>
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th>
-                    Course Name
-                </th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach(var item in ViewBag.Courses as List<Course>)
-            {
+<div id="Ctable">
+    <div>
+        <table class="table table-bordered">
+            <thead>
                 <tr>
-                    <td>
-                        @item.crs_name
-                    </td>
+                    <th>
+                        Course Name
+                    </th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var item in ViewBag.Courses as List<Course>)
+                {
+                    <tr>
+                        <td>
+                            @item.crs_name
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
 </div>
 
+@section Scripts{
+    <script>
+        function changeCourses(deptNo) {
+            Ctable.innerHTML = "";
+            $.ajax({
+                url: "/Instructor/RenderCourses",
+                data: { deptNo:deptNo },
+                success: function (result) {
+                    $("#Ctable").html(result);
+                }
+            });
+        }
+    </script>
+}

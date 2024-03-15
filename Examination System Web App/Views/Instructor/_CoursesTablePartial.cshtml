@@ -1,0 +1,21 @@
+﻿<div>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>
+                    Course Name
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in ViewBag.Courses as List<Course>)
+            {
+                <tr>
+                    <td>
+                        @item.crs_name
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
