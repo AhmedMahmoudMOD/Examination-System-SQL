@@ -13,11 +13,11 @@ public partial class Department
 
     public int? sup_id { get; set; }
 
+    public virtual ICollection<Dept_inst_course> Dept_inst_courses { get; set; } = new List<Dept_inst_course>();
+
+    public virtual ICollection<Exam> Exams { get; set; } = new List<Exam>();
+
     public virtual ICollection<Student> Students { get; set; } = new List<Student>();
 
-    public virtual ICollection<Works_in> Works_ins { get; set; } = new List<Works_in>();
-
     public virtual Instructor sup { get; set; }
-
-    public virtual ICollection<Course> crs { get; set; } = new List<Course>();
 }

@@ -15,11 +15,13 @@ public partial class Exam
 
     public int? exam_duration { get; set; }
 
-    public bool? correction_status { get; set; }
-
     public int? crs_id { get; set; }
+
+    public int? dept_no { get; set; }
 
     public virtual ICollection<Student_answer> Student_answers { get; set; } = new List<Student_answer>();
 
     public virtual Course crs { get; set; }
+
+    public virtual Department dept_noNavigation { get; set; }
 }

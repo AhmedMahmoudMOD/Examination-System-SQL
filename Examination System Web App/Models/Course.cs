@@ -13,6 +13,8 @@ public partial class Course
 
     public int? crs_duration { get; set; }
 
+    public virtual ICollection<Dept_inst_course> Dept_inst_courses { get; set; } = new List<Dept_inst_course>();
+
     public virtual ICollection<Exam> Exams { get; set; } = new List<Exam>();
 
     public virtual ICollection<Question> Questions { get; set; } = new List<Question>();
@@ -20,8 +22,4 @@ public partial class Course
     public virtual ICollection<Std_course> Std_courses { get; set; } = new List<Std_course>();
 
     public virtual ICollection<Topic> Topics { get; set; } = new List<Topic>();
-
-    public virtual ICollection<Department> dept_nos { get; set; } = new List<Department>();
-
-    public virtual ICollection<Instructor> ins { get; set; } = new List<Instructor>();
 }

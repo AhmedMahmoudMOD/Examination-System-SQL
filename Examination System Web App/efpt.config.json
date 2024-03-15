@@ -16,10 +16,6 @@
    "T4TemplatePath": null,
    "Tables": [
       {
-         "Name": "[dbo].[Branch]",
-         "ObjectType": 0
-      },
-      {
          "Name": "[dbo].[Choice]",
          "ObjectType": 0
       },
@@ -32,15 +28,11 @@
          "ObjectType": 0
       },
       {
-         "Name": "[dbo].[Dept_course]",
+         "Name": "[dbo].[Dept_inst_course]",
          "ObjectType": 0
       },
       {
          "Name": "[dbo].[Exam]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[Inst_course]",
          "ObjectType": 0
       },
       {
@@ -65,10 +57,6 @@
       },
       {
          "Name": "[dbo].[Topic]",
-         "ObjectType": 0
-      },
-      {
-         "Name": "[dbo].[Works_in]",
          "ObjectType": 0
       }
    ],

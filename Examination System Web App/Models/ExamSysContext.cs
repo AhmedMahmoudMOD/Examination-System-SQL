@@ -17,13 +17,13 @@ public partial class ExamSysContext : DbContext
     {
     }
 
-    public virtual DbSet<Branch> Branches { get; set; }
-
     public virtual DbSet<Choice> Choices { get; set; }
 
     public virtual DbSet<Course> Courses { get; set; }
 
     public virtual DbSet<Department> Departments { get; set; }
+
+    public virtual DbSet<Dept_inst_course> Dept_inst_courses { get; set; }
 
     public virtual DbSet<Exam> Exams { get; set; }
 
@@ -39,28 +39,12 @@ public partial class ExamSysContext : DbContext
 
     public virtual DbSet<Topic> Topics { get; set; }
 
-    public virtual DbSet<Works_in> Works_ins { get; set; }
-
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
         => optionsBuilder.UseSqlServer("Data Source=tcp:pdsqlproject.database.windows.net,1433;Initial Catalog=ExamSys;User ID=sqladmin@pdsqlproject;Password=Adminpass_123");
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Branch>(entity =>
-        {
-            entity.HasKey(e => e.branch_no).HasName("PK__Branch__E55E5F456659B3C9");
-
-            entity.ToTable("Branch");
-
-            entity.Property(e => e.branch_name)
-                .HasMaxLength(50)
-                .IsUnicode(false);
-            entity.Property(e => e.location)
-                .HasMaxLength(50)
-                .IsUnicode(false);
-        });
-
         modelBuilder.Entity<Choice>(entity =>
         {
             entity.HasKey(e => new { e.q_id, e.ch_no }).HasName("pk_choice");
@@ -99,23 +83,28 @@ public partial class ExamSysContext : DbContext
             entity.HasOne(d => d.sup).WithMany(p => p.Departments)
                 .HasForeignKey(d => d.sup_id)
                 .HasConstraintName("fk_department");
+        });
 
-            entity.HasMany(d => d.crs).WithMany(p => p.dept_nos)
-                .UsingEntity<Dictionary<string, object>>(
-                    "Dept_course",
-                    r => r.HasOne<Course>().WithMany()
-                        .HasForeignKey("crs_id")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FK__Dept_cour__crs_i__7E37BEF6"),
-                    l => l.HasOne<Department>().WithMany()
-                        .HasForeignKey("dept_no")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FK__Dept_cour__dept___7D439ABD"),
-                    j =>
-                    {
-                        j.HasKey("dept_no", "crs_id").HasName("pk_dept_course");
-                        j.ToTable("Dept_course");
-                    });
+        modelBuilder.Entity<Dept_inst_course>(entity =>
+        {
+            entity.HasKey(e => new { e.dept_no, e.inst_id, e.crs_id }).HasName("pk_Dept_inst_course");
+
+            entity.ToTable("Dept_inst_course");
+
+            entity.HasOne(d => d.crs).WithMany(p => p.Dept_inst_courses)
+                .HasForeignKey(d => d.crs_id)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__Dept_inst__crs_i__10E07F16");
+
+            entity.HasOne(d => d.dept_noNavigation).WithMany(p => p.Dept_inst_courses)
+                .HasForeignKey(d => d.dept_no)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__Dept_inst__dept___0EF836A4");
+
+            entity.HasOne(d => d.inst).WithMany(p => p.Dept_inst_courses)
+                .HasForeignKey(d => d.inst_id)
+                .OnDelete(DeleteBehavior.ClientSetNull)
+                .HasConstraintName("FK__Dept_inst__inst___0FEC5ADD");
         });
 
         modelBuilder.Entity<Exam>(entity =>
@@ -133,6 +122,10 @@ public partial class ExamSysContext : DbContext
             entity.HasOne(d => d.crs).WithMany(p => p.Exams)
                 .HasForeignKey(d => d.crs_id)
                 .HasConstraintName("FK__Exam__crs_id__778AC167");
+
+            entity.HasOne(d => d.dept_noNavigation).WithMany(p => p.Exams)
+                .HasForeignKey(d => d.dept_no)
+                .HasConstraintName("FK__Exam__dept_no__0C1BC9F9");
         });
 
         modelBuilder.Entity<Instructor>(entity =>
@@ -156,23 +149,6 @@ public partial class ExamSysContext : DbContext
             entity.Property(e => e.ins_password)
                 .HasMaxLength(100)
                 .IsUnicode(false);
-
-            entity.HasMany(d => d.crs).WithMany(p => p.ins)
-                .UsingEntity<Dictionary<string, object>>(
-                    "Inst_course",
-                    r => r.HasOne<Course>().WithMany()
-                        .HasForeignKey("crs_id")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FK__Inst_cour__crs_i__02084FDA"),
-                    l => l.HasOne<Instructor>().WithMany()
-                        .HasForeignKey("ins_id")
-                        .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FK__Inst_cour__ins_i__01142BA1"),
-                    j =>
-                    {
-                        j.HasKey("ins_id", "crs_id").HasName("pk_inst_course");
-                        j.ToTable("Inst_course");
-                    });
         });
 
         modelBuilder.Entity<Question>(entity =>
@@ -236,10 +212,6 @@ public partial class ExamSysContext : DbContext
                 .HasMaxLength(100)
                 .IsUnicode(false);
 
-            entity.HasOne(d => d.branch_noNavigation).WithMany(p => p.Students)
-                .HasForeignKey(d => d.branch_no)
-                .HasConstraintName("FK__Student__branch___6B24EA82");
-
             entity.HasOne(d => d.dept_noNavigation).WithMany(p => p.Students)
                 .HasForeignKey(d => d.dept_no)
                 .HasConstraintName("FK__Student__dept_no__6A30C649");
@@ -280,28 +252,6 @@ public partial class ExamSysContext : DbContext
             entity.HasOne(d => d.crs).WithMany(p => p.Topics)
                 .HasForeignKey(d => d.crs_id)
                 .HasConstraintName("FK__Topic__crs_id__6754599E");
-        });
-
-        modelBuilder.Entity<Works_in>(entity =>
-        {
-            entity.HasKey(e => new { e.ins_id, e.branch_no, e.dept_no }).HasName("pk_works_in");
-
-            entity.ToTable("Works_in");
-
-            entity.HasOne(d => d.branch_noNavigation).WithMany(p => p.Works_ins)
-                .HasForeignKey(d => d.branch_no)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Works_in__branch__72C60C4A");
-
-            entity.HasOne(d => d.dept_noNavigation).WithMany(p => p.Works_ins)
-                .HasForeignKey(d => d.dept_no)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Works_in__dept_n__73BA3083");
-
-            entity.HasOne(d => d.ins).WithMany(p => p.Works_ins)
-                .HasForeignKey(d => d.ins_id)
-                .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK__Works_in__ins_id__71D1E811");
         });
 
         OnModelCreatingPartial(modelBuilder);

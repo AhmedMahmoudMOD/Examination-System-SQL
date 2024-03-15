@@ -25,7 +25,5 @@ public partial class Instructor
 
     public virtual ICollection<Department> Departments { get; set; } = new List<Department>();
 
-    public virtual ICollection<Works_in> Works_ins { get; set; } = new List<Works_in>();
-
-    public virtual ICollection<Course> crs { get; set; } = new List<Course>();
+    public virtual ICollection<Dept_inst_course> Dept_inst_courses { get; set; } = new List<Dept_inst_course>();
 }

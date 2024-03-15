@@ -23,13 +23,9 @@ public partial class Student
 
     public int? dept_no { get; set; }
 
-    public int? branch_no { get; set; }
-
     public virtual ICollection<Std_course> Std_courses { get; set; } = new List<Std_course>();
 
     public virtual ICollection<Student_answer> Student_answers { get; set; } = new List<Student_answer>();
-
-    public virtual Branch branch_noNavigation { get; set; }
 
     public virtual Department dept_noNavigation { get; set; }
 }
