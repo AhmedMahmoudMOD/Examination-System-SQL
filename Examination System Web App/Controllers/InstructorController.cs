@@ -55,6 +55,7 @@ namespace Examination_System_Web_App.Controllers
         [HttpPost]
         public IActionResult AddMCQ(QuestionWithChoicesVM question)
         {
+            if (ModelState.IsValid) { 
             Question q = new Question() { crs_id = question.CrsId, q_type="MCQ" , q_text=question.Q_Text , q_modalanswer=question.ModelAnswer , q_score=question.Q_Score };
             questionRepository.Add(q);
 
@@ -64,6 +65,12 @@ namespace Examination_System_Web_App.Controllers
             q.Choices.Add(new Choice { q_id = q.q_id, ch_no = 4, ch_text = question.Choice_4 });
             questionRepository.Update(q);
             return RedirectToAction("Index");
+            }
+            else
+            {
+                ViewBag.CourseID = question.CrsId;
+                return View("AddQuestion",question);
+            }
         }
 
         [HttpPost]
