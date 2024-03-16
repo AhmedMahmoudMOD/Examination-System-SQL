@@ -1,5 +1,6 @@
 ﻿using Examination_System_Web_App.Models;
 using Examination_System_Web_App.Repositories;
+using Examination_System_Web_App.View_Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Examination_System_Web_App.Controllers
@@ -8,11 +9,15 @@ namespace Examination_System_Web_App.Controllers
     {
         private readonly IInstructorRepository instructorRepository;
         private readonly IStudentCourseRepository studentCourseRepository;
+        private readonly IQuestionRepository questionRepository;
+        private readonly IChoiceRepository choiceRepository;
 
-        public InstructorController(IInstructorRepository instructorRepository , IStudentCourseRepository studentCourseRepository)
+        public InstructorController(IInstructorRepository instructorRepository , IStudentCourseRepository studentCourseRepository , IQuestionRepository questionRepository , IChoiceRepository choiceRepository)
         {
             this.instructorRepository = instructorRepository;
             this.studentCourseRepository = studentCourseRepository;
+            this.questionRepository = questionRepository;
+            this.choiceRepository = choiceRepository;
         }
         public IActionResult Index()
         {
@@ -38,6 +43,33 @@ namespace Examination_System_Web_App.Controllers
             var List = studentCourseRepository.GetByCourseID(crsId,deptNo);
 
             return PartialView("_CouesesGradesPartial", List);
+        }
+
+        public IActionResult AddQuestion(int crsId)
+        {
+            ViewBag.CourseID = crsId;
+            return View();
+        }
+
+
+        [HttpPost]
+        public IActionResult AddMCQ(QuestionWithChoicesVM question)
+        {
+            Question q = new Question() { crs_id = question.CrsId, q_type="MCQ" , q_text=question.Q_Text , q_modalanswer=question.ModelAnswer , q_score=question.Q_Score };
+            questionRepository.Add(q);
+
+            q.Choices.Add(new Choice { q_id=q.q_id, ch_no = 1, ch_text = question.Choice_1 });
+            q.Choices.Add(new Choice { q_id = q.q_id, ch_no = 2, ch_text = question.Choice_2 });
+            q.Choices.Add(new Choice {q_id = q.q_id, ch_no = 3, ch_text = question.Choice_3 });
+            q.Choices.Add(new Choice { q_id = q.q_id, ch_no = 4, ch_text = question.Choice_4 });
+            questionRepository.Update(q);
+            return RedirectToAction("Index");
+        }
+
+        [HttpPost]
+        public IActionResult AddTorF()
+        {
+            return RedirectToAction("Index");
         }
     }
 }

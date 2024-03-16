@@ -5,7 +5,7 @@
 }
 
 
-<div class="mb-3">
+<div class="mb-3 mt-4">
     <select id="deptSelector" class="form-control" asp-items="deptList" onchange="changeCourses(this.value)" name="deptNo"></select>
 </div>
 <h1 class="mb-3">List Of Courses</h1>
@@ -37,6 +37,7 @@
                         </td>
                         <td>
                             <a  onclick="getGrades(deptSelector.value,@item.crs_id)" class="btn btn-primary">Results</a>
+                            <a asp-action="AddQuestion" asp-route-crsId="@item.crs_id" class="btn btn-dark">Add Question</a>
                         </td>
                     </tr>
                 }

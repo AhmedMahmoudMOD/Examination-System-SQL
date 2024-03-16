@@ -26,5 +26,11 @@ namespace Examination_System_Web_App.Repositories
             _sysContext.Questions.Add(question);
             _sysContext.SaveChanges();
         }
+
+        public void Update(Question question)
+        {
+            _sysContext.Questions.Update(question);
+            _sysContext.SaveChanges();
+        }
     }
 }

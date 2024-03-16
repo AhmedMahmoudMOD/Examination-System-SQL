@@ -9,5 +9,7 @@ namespace Examination_System_Web_App.Repositories
         Question GetById(int id);
 
         void Add(Question question);
+
+        void Update(Question question);
     }
 }
