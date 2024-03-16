@@ -1,4 +1,75 @@
 ﻿@{
     Layout = "~/Views/Shared/_LayoutBS.cshtml";
+
+    SelectList deptList = new SelectList(ViewBag.Depts, "dept_no", "dept_name");
 }
 
+
+<div class="mb-3 mt-4">
+    <select id="deptSelector" class="form-control" asp-items="deptList" onchange="changeCourses(this.value)" name="deptNo"></select>
+</div>
+<h1 class="mb-3">List Of Courses</h1>
+<div class="mb-3" id="Ctable">
+    <div>
+        <table class="table table-bordered">
+            <thead>
+                <tr>
+                    <th>
+                        ID
+                    </th>
+                    <th>
+                        Name
+                    </th>
+                    <th>
+
+                    </th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in ViewBag.Courses as List<Course>)
+                {
+                    <tr>
+                        <td>
+                            @item.crs_id
+                        </td>
+                        <td>
+                            @item.crs_name
+                        </td>
+                        <td>
+                            <a  onclick="getGrades(deptSelector.value,@item.crs_id)" class="btn btn-primary">Results</a>
+                            <a asp-action="AddQuestion" asp-route-crsId="@item.crs_id" class="btn btn-dark">Add Question</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+</div>
+<div id="Rtable">
+
+</div>
+
+@section Scripts{
+    <script>
+        function changeCourses(deptNo) {
+            Ctable.innerHTML = "";
+            $.ajax({
+                url: "/Instructor/RenderCourses",
+                data: { deptNo:deptNo },
+                success: function (result) {
+                    $("#Ctable").html(result);
+                }
+            });
+        }
+
+        function getGrades(deptNo,crsId) {
+            $.ajax({
+                url: "/Instructor/GetCourseGrades",
+                data: { deptNo: deptNo  , crsId : crsId},
+                success: function (result) {
+                    $("#Rtable").html(result);
+                }
+            });
+        }
+    </script>
+}
