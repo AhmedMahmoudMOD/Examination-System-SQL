@@ -67,8 +67,14 @@ namespace Examination_System_Web_App.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddTorF()
+        public IActionResult AddTorF(QuestionWithChoicesVM question)
         {
+            Question q = new Question() { crs_id = question.CrsId, q_type = "T/F", q_text = question.Q_Text, q_modalanswer = question.ModelAnswer, q_score = question.Q_Score };
+            questionRepository.Add(q);
+
+            q.Choices.Add(new Choice { q_id = q.q_id, ch_no = 1, ch_text = "True" });
+            q.Choices.Add(new Choice { q_id = q.q_id, ch_no = 2, ch_text = "False"});
+            questionRepository.Update(q);
             return RedirectToAction("Index");
         }
     }
