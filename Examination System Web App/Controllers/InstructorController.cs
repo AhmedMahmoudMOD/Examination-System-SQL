@@ -12,5 +12,11 @@ namespace Examination_System_Web_App.Controllers
         {
             return View();
         }
+
+        public IActionResult AddQuestion()
+        {
+            return View();
+        }
+
     }
 }
