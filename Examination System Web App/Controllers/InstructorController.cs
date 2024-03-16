@@ -2,6 +2,7 @@
 using Examination_System_Web_App.Repositories;
 using Examination_System_Web_App.View_Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.ModelBinding;
 
 namespace Examination_System_Web_App.Controllers
 {
@@ -74,15 +75,25 @@ namespace Examination_System_Web_App.Controllers
         }
 
         [HttpPost]
-        public IActionResult AddTorF(QuestionWithChoicesVM question)
+        public IActionResult AddTorF(QuestionTorFVM question)
         {
-            Question q = new Question() { crs_id = question.CrsId, q_type = "T/F", q_text = question.Q_Text, q_modalanswer = question.ModelAnswer, q_score = question.Q_Score };
-            questionRepository.Add(q);
 
-            q.Choices.Add(new Choice { q_id = q.q_id, ch_no = 1, ch_text = "True" });
-            q.Choices.Add(new Choice { q_id = q.q_id, ch_no = 2, ch_text = "False"});
-            questionRepository.Update(q);
-            return RedirectToAction("Index");
+            if (ModelState.IsValid)
+            {
+                Question q = new Question() { crs_id = question.CrsId, q_type = "T/F", q_text = question.Q_Text, q_modalanswer = question.ModelAnswer, q_score = question.Q_Score };
+                questionRepository.Add(q);
+
+                q.Choices.Add(new Choice { q_id = q.q_id, ch_no = 1, ch_text = "True" });
+                q.Choices.Add(new Choice { q_id = q.q_id, ch_no = 2, ch_text = "False" });
+                questionRepository.Update(q);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                ViewBag.CourseID = question.CrsId;
+                return View("AddQuestion", question);
+            }
+           
         }
     }
 }
