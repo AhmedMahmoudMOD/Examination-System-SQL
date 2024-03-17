@@ -36,7 +36,10 @@ namespace Examination_System_Web_App.Controllers
 
         public IActionResult show_exam(int id, int stdid)
         {
-            return Content($"{id}::{stdid}");
+            ViewBag.examid = id;
+            ViewBag.stdid = stdid;
+
+            return View();
         }
     }
 }
