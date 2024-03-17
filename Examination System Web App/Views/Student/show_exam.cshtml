@@ -1,4 +1,6 @@
-﻿@{
+﻿@model IEnumerable<Question>
+@{
+	int old = ViewBag.old;
 	Layout = null;
 }
 
@@ -40,7 +42,34 @@
 		</nav>
 		<!-- Page content-->
 		<div class="container-fluid">
-			<h1>@ViewBag.examid :: @ViewBag.stdid</h1>
+			<form method="post" class="my-5 fs-4">
+
+				@foreach (Question q in Model)
+				{
+					if (old == q.q_id)
+					{
+						continue;
+					}
+					old = q.q_id;
+					{ ViewBag.counter++; }
+					<div class="card">
+						<div class="card-header">
+							@ViewBag.counter-  @q.q_text
+						</div>
+
+						<div class="card-body bg-danger text-white">
+							@foreach (Choice c in q.Choices)
+							{
+								<div>
+									<input type="radio" name="@q.q_id" value="@c.ch_no" />
+									<label>@c.ch_text  </label>
+								</div>
+							}
+						</div>
+					</div>
+				}
+				<button type="submit" asp-action="ExamSumbitted" class="btn mt-3 fs-4 fw-bold col-12 btn-outline-dark">Submit</button>
+			</form>
 		</div>
 	</div>
 </body>
