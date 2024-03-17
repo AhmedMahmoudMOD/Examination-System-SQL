@@ -2,9 +2,8 @@
 
 namespace Examination_System_Web_App.Repositories
 {
-    public interface IStudentRepository
+    public interface IChoiceRepository
     {
-        public Student GetStudent(int id);
-
+        public void Add(Choice choice);
     }
 }

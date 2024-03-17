@@ -2,9 +2,8 @@
 
 namespace Examination_System_Web_App.Repositories
 {
-    public interface IStudentRepository
+    public interface IStudentCourseRepository
     {
-        public Student GetStudent(int id);
-
+        List<Std_course> GetByCourseID(int courseID,int DeptNo);
     }
 }

@@ -1,0 +1,39 @@
+﻿@model List<Std_course>
+
+<h1>Course Grades</h1>
+
+<div>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>
+                    Student Name
+                </th>
+                <th>
+                    Grade
+                </th>
+                <th>
+                    Status
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @(item.std.std_fname + " " + @item.std.std_lname)
+                    </td>
+                    <td>
+                        @item.grade
+                    </td>
+                    <td>
+                        @item.status
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+

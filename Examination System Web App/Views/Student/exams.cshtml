@@ -1,0 +1,17 @@
+﻿@model IEnumerable<Exam>
+@{
+    ViewData["Title"] = "exams";
+    Layout = "_LayoutStudent";
+    SelectList deptList = new SelectList(Model, "exam_id", "crs.crs_name");
+    int stdid = (int)ViewBag.stdid;
+    ViewData["stdid"] = stdid;
+
+}
+
+<form method="post" asp-action="show_exam" asp-route-stdid = "@stdid">
+    <select name="id" asp-items="deptList" class="form-select form-select-lg mb-3" aria-label="Large select example">
+
+    </select>
+<br />
+<input type="submit" value="enter exam" class="btn btn-success m-auto" />
+</form>

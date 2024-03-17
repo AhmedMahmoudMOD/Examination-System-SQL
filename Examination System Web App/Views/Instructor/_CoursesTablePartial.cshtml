@@ -1,0 +1,33 @@
+﻿<div>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>
+                    ID
+                </th>
+                <th>
+                    Name
+                </th>
+                <th>
+
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in ViewBag.Courses as List<Course>)
+            {
+                <tr>
+                    <td>
+                        @item.crs_id
+                    </td>
+                    <td>
+                        @item.crs_name
+                    </td>
+                    <td>
+                        <a onclick="getGrades(deptSelector.value,@item.crs_id)" class="btn btn-primary">Results</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
