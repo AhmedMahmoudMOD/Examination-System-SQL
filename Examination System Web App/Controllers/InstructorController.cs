@@ -95,5 +95,10 @@ namespace Examination_System_Web_App.Controllers
             }
            
         }
+
+        public IActionResult CreateExam()
+        {
+            return View();
+        }
     }
 }
