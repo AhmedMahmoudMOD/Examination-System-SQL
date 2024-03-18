@@ -12,13 +12,15 @@ namespace Examination_System_Web_App.Controllers
         private readonly IStudentCourseRepository studentCourseRepository;
         private readonly IQuestionRepository questionRepository;
         private readonly IChoiceRepository choiceRepository;
+        private readonly IExamRepository examRepository;
 
-        public InstructorController(IInstructorRepository instructorRepository , IStudentCourseRepository studentCourseRepository , IQuestionRepository questionRepository , IChoiceRepository choiceRepository)
+        public InstructorController(IInstructorRepository instructorRepository , IStudentCourseRepository studentCourseRepository , IQuestionRepository questionRepository , IChoiceRepository choiceRepository,IExamRepository examRepository)
         {
             this.instructorRepository = instructorRepository;
             this.studentCourseRepository = studentCourseRepository;
             this.questionRepository = questionRepository;
             this.choiceRepository = choiceRepository;
+            this.examRepository = examRepository;
         }
         public IActionResult Index()
         {
@@ -94,6 +96,29 @@ namespace Examination_System_Web_App.Controllers
                 return View("AddQuestion", question);
             }
            
+        }
+
+        public IActionResult GenerateExam(int crsId, int deptNo)
+        {
+            ViewBag.CourseID = crsId;
+            ViewBag.DeptNo = deptNo;
+            return PartialView("_GenerateExamPartial");
+        }
+
+        [HttpPost]
+        public async Task <IActionResult> GenerateExam (ExamGenVM exam)
+        {
+            if(ModelState.IsValid)
+            {
+               var res = await examRepository.ExamGeneration(exam.crsId, exam.deptNo,exam.exam_name,exam.mcqNo,exam.tfNo,exam.exam_duration,exam.exam_date);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                ViewBag.CouresID = exam.crsId;
+                ViewBag.DeptNo = exam.deptNo;
+                return View("_GenerateExamPartial",exam);
+            }
         }
     }
 }

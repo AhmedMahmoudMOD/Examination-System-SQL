@@ -22,6 +22,7 @@ namespace Examination_System_Web_App
             builder.Services.AddScoped<IInstructorRepository, InstructorRepository>();
             builder.Services.AddScoped<IStudentCourseRepository, StudentCourseRepository>();
             builder.Services.AddScoped<IChoiceRepository, ChoiceRepository>();
+            builder.Services.AddScoped<IExamRepository, ExamRepository>();
 
             var app = builder.Build();
 
