@@ -20,5 +20,14 @@ namespace Examination_System_Web_App.Repositories
 
             return data;
         }
+
+        public IQueryable<StudentPerDeptReportVM> GetStudentPerDeptReport(int deptNo)
+        {
+            var data = db.Database.SqlQuery<StudentPerDeptReportVM>($"sp_report_AllStudentIndepartmentByID {deptNo}");
+
+            return data;
+        }
+
+
     }
 }

@@ -13,14 +13,16 @@ namespace Examination_System_Web_App.Controllers
         private readonly IQuestionRepository questionRepository;
         private readonly IChoiceRepository choiceRepository;
         private readonly IExamRepository examRepository;
+        private readonly IDepartmentRepository departmentRepository;
 
-        public InstructorController(IInstructorRepository instructorRepository , IStudentCourseRepository studentCourseRepository , IQuestionRepository questionRepository , IChoiceRepository choiceRepository,IExamRepository examRepository)
+        public InstructorController(IInstructorRepository instructorRepository , IStudentCourseRepository studentCourseRepository , IQuestionRepository questionRepository , IChoiceRepository choiceRepository,IExamRepository examRepository , IDepartmentRepository departmentRepository)
         {
             this.instructorRepository = instructorRepository;
             this.studentCourseRepository = studentCourseRepository;
             this.questionRepository = questionRepository;
             this.choiceRepository = choiceRepository;
             this.examRepository = examRepository;
+            this.departmentRepository = departmentRepository;
         }
         public IActionResult Index()
         {
@@ -119,6 +121,24 @@ namespace Examination_System_Web_App.Controllers
                 ViewBag.DeptNo = exam.deptNo;
                 return View("_GenerateExamPartial",exam);
             }
+        }
+
+        public IActionResult GetStudents()
+        {
+            int InsID = 1;
+            var Depts = instructorRepository.GetDepartments(InsID);
+            ViewBag.Depts = Depts;
+            int stDeptNo = Depts[0].dept_no;
+            ViewBag.Students = departmentRepository.GetStudentsPerDept(stDeptNo);
+            return View("Students");
+        }
+
+        public IActionResult RenderStudents(int deptNo)
+        {
+
+            int stDeptNo = deptNo;
+            ViewBag.Students = departmentRepository.GetStudentsPerDept(stDeptNo);
+            return PartialView("_StudentsTablePartial");
         }
     }
 }
