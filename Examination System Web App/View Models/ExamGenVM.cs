@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using Examination_System_Web_App.Validations;
+using System.ComponentModel.DataAnnotations;
 
 namespace Examination_System_Web_App.View_Models
 {
@@ -19,7 +20,11 @@ namespace Examination_System_Web_App.View_Models
         [Range(10, 180, ErrorMessage = "Duration must between 10 and 180 minutes")]
         public int exam_duration { get; set; }
         [Display(Name = "Date")]
+        [FutureDate(ErrorMessage = "Date must be in the future.")]
         public DateTime exam_date { get; set; }
+
+        [ValidateTotalQuestions(ErrorMessage = "The sum of MCQ and T/F must be 10.")]
+        public int TotalQuestions => mcqNo + tfNo;
 
 
     }
