@@ -28,6 +28,13 @@ namespace Examination_System_Web_App.Repositories
             return data;
         }
 
+        public IQueryable<InstCoursesReport> GetCoursesReport(int InsId)
+        {
+            var date = db.Database.SqlQuery<InstCoursesReport>($"sp_GetNumberOfStudentPerCourseForInstructor {InsId}");
+
+            return date;
+        }
+
 
     }
 }

@@ -10,9 +10,9 @@
     <div class="mb-3 mt-4">
         <select id="deptSelector" class="form-control" asp-items="deptList" onchange="changeStudents(this.value)" name="deptNo"></select>
     </div>
-    <div class="row">
-    <h1 class="mb-3 col-md-5">List Of Students</h1>
-        <a class="btn btn-dark" onclick="genStudentPerDeptReport(deptSelector.value)">All Students Info Report</a>
+    <div class="row justify-content-between">
+    <p class="mb-3 col-md-5">List Of Students</p>
+        <a class="btn btn-dark col-md-3" onclick="genStudentPerDeptReport(deptSelector.value)">All Students Info Report</a>
     </div>
     <div class="mb-3" id="Ctable">
         <div>
