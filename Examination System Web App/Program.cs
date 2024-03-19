@@ -14,6 +14,8 @@ namespace Examination_System_Web_App
             //commit 
             builder.Services.AddControllersWithViews();
 
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("Mgo+DSMBMAY9C3t2UFhhQlJBfV5AQmBIYVp/TGpJfl96cVxMZVVBJAtUQF1hTX5Qd01jW39ccnNXRmZV");
+
             builder.Services.AddDbContext<ExamSysContext>(optionsBuilder =>
             {
                 optionsBuilder.UseSqlServer("Data Source=tcp:pdsqlproject.database.windows.net,1433;Initial Catalog=ExamSys;User ID=sqladmin@pdsqlproject;Password=Adminpass_123;Connect Timeout=1200");
@@ -25,6 +27,8 @@ namespace Examination_System_Web_App
             builder.Services.AddScoped<IChoiceRepository, ChoiceRepository>();
             builder.Services.AddScoped<IStudentRepository, StudentRepository>();
             builder.Services.AddScoped<IExamRepository, ExamRepository>();
+            builder.Services.AddScoped<IReportRepository, ReportRepository>();
+            builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();  
 
             var app = builder.Build();
 
