@@ -117,7 +117,7 @@ namespace Examination_System_Web_App.Controllers
             }
             else
             {
-                ViewBag.CouresID = exam.crsId;
+                ViewBag.CourseID = exam.crsId;
                 ViewBag.DeptNo = exam.deptNo;
                 return View("_GenerateExamPartial",exam);
             }

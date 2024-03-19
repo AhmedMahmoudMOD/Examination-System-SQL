@@ -1,5 +1,5 @@
 ﻿<div>
-    <table class="table table-bordered">
+    <table class="table table-striped">
         <thead>
             <tr>
                 <th>
@@ -30,6 +30,7 @@
                         @item.std_email
                     </td>
                     <td>
+                        <a class="btn btn-dark" asp-action="GenStdGrades" asp-controller="Report" asp-route-stdId="@item.std_id">Student Grades Report</a>
                     </td>
                 </tr>
             }
