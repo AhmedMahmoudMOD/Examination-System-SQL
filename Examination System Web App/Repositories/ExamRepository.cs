@@ -19,14 +19,20 @@ namespace Examination_System_Web_App.Repositories
             return model;
         }
 
-        public List<Exam> GetAllForDepartmentToday(int id ,int stdid)
+        public List<Exam> GetAllForDepartmentToday(int id, int stdid)
         {
-            var degrees = db.Std_courses.Where(x=>x.std_id==stdid && x.grade.HasValue).Select(x=>x.crs_id).ToList();
+            var degrees = db.Std_courses.Where(x => x.std_id == stdid && x.grade.HasValue).Select(x => x.crs_id).ToList();
 
             var model = db.Exams.Include(y => y.crs)
-                .Include(z=>z.dept_noNavigation)
-                .Where(x=>x.dept_no== id&& x.exam_date.HasValue && x.exam_date.Value.Date==DateTime.Today&&!degrees.Contains(x.crs_id.Value)).ToList();
+                .Include(z => z.dept_noNavigation)
+                .Where(x => x.dept_no == id && x.exam_date.HasValue && x.exam_date.Value.Date == DateTime.Today && !degrees.Contains(x.crs_id.Value)).ToList();
             return model;
+        }
+        public async Task<int> ExamGeneration(int crsId , int deptNo , string name , int mcqNo , int tfNo , int duration , DateTime date)
+        {
+           var res =  await db.Database.ExecuteSqlAsync($"EXEC sp_GenerateExam {crsId}, {deptNo}, {mcqNo}, {tfNo}, {duration}, {date}, {name}");
+
+            return res;
         }
     }
 }
