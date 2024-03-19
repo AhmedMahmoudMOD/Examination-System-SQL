@@ -39,6 +39,11 @@ namespace Examination_System_Web_App.Repositories
             return model;
         }
 
+        public List<Exam> GetByCourseAndDept(int crsId,int deptNo) { 
+            var list = db.Exams.Where(e=>e.crs_id == crsId && e.dept_no==deptNo).ToList();
+            return list;
+        }
+
 
         public async Task<int> ExamGeneration(int crsId , int deptNo , string name , int mcqNo , int tfNo , int duration , DateTime date)
         {
