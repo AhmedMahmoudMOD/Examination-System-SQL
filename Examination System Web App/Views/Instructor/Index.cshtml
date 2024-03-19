@@ -4,11 +4,12 @@
     SelectList deptList = new SelectList(ViewBag.Depts, "dept_no", "dept_name");
 }
 
-
+<div id="Mainsec">
 <div class="mb-3 mt-4">
     <select id="deptSelector" class="form-control" asp-items="deptList" onchange="changeCourses(this.value)" name="deptNo"></select>
 </div>
 <h1 class="mb-3">List Of Courses</h1>
+<a class="btn btn-dark" asp-action="GenCoursesReport" asp-controller="Report">All Courses Info</a>
 <div class="mb-3" id="Ctable">
     <div>
         <table class="table table-bordered">
@@ -38,6 +39,8 @@
                         <td>
                             <a  onclick="getGrades(deptSelector.value,@item.crs_id)" class="btn btn-primary">Results</a>
                             <a asp-action="AddQuestion" asp-route-crsId="@item.crs_id" class="btn btn-dark">Add Question</a>
+                            <a onclick="genExam(deptSelector.value,@item.crs_id)" class="btn btn-success">Create Exam</a>
+                            <a asp-action="GenTopicsReport" asp-controller="Report" asp-route-crsId="@item.crs_id" class="btn btn-outline-dark">Couse Topics</a>
                         </td>
                     </tr>
                 }
@@ -47,6 +50,7 @@
 </div>
 <div id="Rtable">
 
+</div>
 </div>
 
 @section Scripts{
@@ -68,6 +72,16 @@
                 data: { deptNo: deptNo  , crsId : crsId},
                 success: function (result) {
                     $("#Rtable").html(result);
+                }
+            });
+        }
+
+        function genExam(deptNo, crsId) {
+            $.ajax({
+                url: "/Instructor/GenerateExam",
+                data: { deptNo: deptNo, crsId: crsId },
+                success: function (result) {
+                    $("#Mainsec").html(result);
                 }
             });
         }

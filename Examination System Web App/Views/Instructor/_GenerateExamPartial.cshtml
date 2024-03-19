@@ -1,0 +1,46 @@
+﻿@model Examination_System_Web_App.View_Models.ExamGenVM
+ @* @{
+     Layout = "_LayoutBS";
+ } *@
+
+<div class="row container-fluid mt-4">
+    <div>
+        <form asp-action="GenerateExam">
+            <input type="hidden" name="crsId" value="@ViewBag.CourseID" />
+            <input type="hidden" name="deptNo" value="@ViewBag.DeptNo" />
+            <div class="form-group mb-3">
+                <label asp-for="exam_name" class="control-label mb-2"></label>
+                <input asp-for="exam_name" class="form-control" />
+                <span asp-validation-for="exam_name" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="mcqNo" class="control-label mb-2"></label>
+                <input asp-for="mcqNo" class="form-control" />
+                <span asp-validation-for="mcqNo" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="tfNo" class="control-label mb-2"></label>
+                <input asp-for="tfNo" class="form-control" />
+                <span asp-validation-for="tfNo" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="exam_date" class="control-label mb-2"></label>
+                <input asp-for="exam_date" class="form-control" />
+                <span asp-validation-for="exam_date" class="text-danger"></span>
+            </div>
+            <div class="form-group mb-3">
+                <label asp-for="exam_duration" class="control-label mb-2"></label>
+                <input asp-for="exam_duration" class="form-control" />
+                <span asp-validation-for="exam_duration" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Sumbit" class="btn btn-success" />
+            </div>
+        </form>
+    </div>
+</div>
+
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

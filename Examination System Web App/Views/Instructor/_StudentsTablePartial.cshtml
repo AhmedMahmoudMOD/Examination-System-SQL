@@ -1,0 +1,38 @@
+﻿<div>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>
+                    ID
+                </th>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Email
+                </th>
+                <th>
+
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in ViewBag.Students as List<Student>)
+            {
+                <tr>
+                    <td>
+                        @item.std_id
+                    </td>
+                    <td>
+                        @(item.std_fname + " " + item.std_lname)
+                    </td>
+                    <td>
+                        @item.std_email
+                    </td>
+                    <td>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
