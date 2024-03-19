@@ -9,10 +9,10 @@
     <select id="deptSelector" class="form-control" asp-items="deptList" onchange="changeCourses(this.value)" name="deptNo"></select>
 </div>
 <h1 class="mb-3">List Of Courses</h1>
-<a class="btn btn-dark" asp-action="GenCoursesReport" asp-controller="Report">All Courses Info</a>
+<a class="btn btn-dark mb-3" asp-action="GenCoursesReport" asp-controller="Report">All Courses Info</a>
 <div class="mb-3" id="Ctable">
     <div>
-        <table class="table table-bordered">
+            <table class="table table-striped">
             <thead>
                 <tr>
                     <th>
