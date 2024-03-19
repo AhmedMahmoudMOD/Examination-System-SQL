@@ -1,12 +1,13 @@
-﻿@model Student
+﻿@model IEnumerable<Std_course>
 @{
     ViewData["Title"] = "Index";
     Layout = "_LayoutStudent";
-    ViewData["stdid"] = Model.std_id;
+    Student std = (ViewBag.student as Student);
+    ViewData["stdid"] = std.std_id;
     string color;
 }
 
-<h1 class="text-center"> @Model.std_fname @Model.std_lname Degrees</h1>
+<h1 class="text-center"> @std.std_fname @std.std_lname Degrees</h1>
 <div>
 <table class="table table-striped table-hover table-bordered">
     <thead>
@@ -17,22 +18,33 @@
     </tr>
     </thead>
     <tbody>
-    @foreach(var item in Model.Std_courses)
-    {
-        if (@item.grade<=50)
-        {
-            color = "bg-danger";
-        }
-        else
-        {
-            color = "bg-success";      
-        }
-            <tr class=@color>
-            <td>@item.crs.crs_name</td>
-            <td>@item.grade</td>
-            <td>@item.status</td>
-        </tr>
-    }
+            @if (Model.Count() >  0)
+            {
+                @foreach (var item in Model)
+                {
+                    if (@item.grade <= 50)
+                    {
+                        color = "bg-danger";
+                    }
+                    else
+                    {
+                        color = "bg-success";
+                    }
+
+                    <tr class=@color>
+                        <td>@item.crs.crs_name</td>
+                        <td>@item.grade</td>
+                        <td>@item.status</td>
+                    </tr>
+                }
+            }
+            else
+            {
+                <tr>
+                    <td colspan="3"> this student didn't took any exam yet</td>
+                </tr>
+            }
+           
     </tbody>
 </table>
 </div>

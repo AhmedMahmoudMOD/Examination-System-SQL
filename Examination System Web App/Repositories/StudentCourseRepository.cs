@@ -18,5 +18,10 @@ namespace Examination_System_Web_App.Repositories
             return list;
         
         }
+        public List<Std_course> GetStudentDegrees (int std_id)
+        {
+            var list = db.Std_courses.Include(s=>s.std).Include(s=>s.crs).Where(x=>x.std_id== std_id && x.grade.HasValue).ToList();
+            return list;
+        }
     }
 }
