@@ -2,6 +2,7 @@
     Layout = "~/Views/Shared/_LayoutBS.cshtml";
 
     SelectList deptList = new SelectList(ViewBag.Depts, "dept_no", "dept_name");
+
 }
 
 <div id="Mainsec">
@@ -54,6 +55,8 @@
 </div>
 
 @section Scripts{
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
     <script>
         function changeCourses(deptNo) {
             Ctable.innerHTML = "";
@@ -85,5 +88,7 @@
                 }
             });
         }
+       
     </script>
+    
 }
