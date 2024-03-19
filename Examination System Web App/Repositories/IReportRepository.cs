@@ -11,5 +11,7 @@ namespace Examination_System_Web_App.Repositories
         IQueryable<InstCoursesReport> GetCoursesReport(int InsId);
 
         IQueryable<StudentGradesReportVM> GetStdGrades(int stdId);
+        IQueryable<AnsweReportsVM> GetAsnwer(int std_id, int exam_id);
+
     }
 }
