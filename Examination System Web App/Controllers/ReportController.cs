@@ -34,14 +34,19 @@ namespace Examination_System_Web_App.Controllers
                 //Set the standard font.
                 PdfFont font = new PdfStandardFont(PdfFontFamily.Courier, 25);
                 //Draw the text.
-                graphics.DrawString("Topics List", font, PdfBrushes.Black, new PointF(graphics.ClientSize.Width /3, 50));
+                graphics.DrawString("Topics List", font, PdfBrushes.Black, new PointF(graphics.ClientSize.Width /3, 100));
+                // Adding ITI Image 
+                FileStream imageStream = new FileStream("wwwroot/images/iti.png", FileMode.Open, FileAccess.Read);
+                PdfBitmap image = new PdfBitmap(imageStream);
+                //Draw the image
+                graphics.DrawImage(image, 0, 0,100,100);
 
                 //Add list to IEnumerable.
                 IEnumerable<object> dataTable = data;
                 //Assign data source.
                 pdfGrid.DataSource = dataTable;
                 //Apply built-in table style
-                pdfGrid.ApplyBuiltinStyle(PdfGridBuiltinStyle.GridTable4Accent5);
+                pdfGrid.ApplyBuiltinStyle(PdfGridBuiltinStyle.GridTable4);
                 for (int i = 0; i < pdfGrid.Rows.Count; i++)
                 {
                     pdfGrid.Rows[i].Height = 20;
@@ -60,8 +65,15 @@ namespace Examination_System_Web_App.Controllers
                 {
                     pdfGrid.Columns[i].Format = stringFormat;
                 }
+
+                // Renaming Table Headers 
+                PdfGridRow header = pdfGrid.Headers[0];
+
+                header.Cells[0].Value = "Course Name";
+                header.Cells[1].Value = "Topic Name";
+               
                 //Draw grid to the page of PDF document.
-                pdfGrid.Draw(page, new Syncfusion.Drawing.PointF(10, 150), layoutFormat);
+                pdfGrid.Draw(page, new Syncfusion.Drawing.PointF(10, 200), layoutFormat);
                 //Write the PDF document to stream.
                 MemoryStream stream = new MemoryStream();
                 doc.Save(stream);
@@ -102,8 +114,12 @@ namespace Examination_System_Web_App.Controllers
                 //Set the standard font.
                 PdfFont font = new PdfStandardFont(PdfFontFamily.Courier, 25);
                 //Draw the text.
-                graphics.DrawString("Student List", font, PdfBrushes.Black, new PointF(graphics.ClientSize.Width / 3, 50));
-
+                graphics.DrawString("Student List", font, PdfBrushes.Black, new PointF(graphics.ClientSize.Width / 3, 100));
+                // Adding ITI Image 
+                FileStream imageStream = new FileStream("wwwroot/images/iti.png", FileMode.Open, FileAccess.Read);
+                PdfBitmap image = new PdfBitmap(imageStream);
+                //Draw the image
+                graphics.DrawImage(image, 0, 0, 100, 100);
                 //Add list to IEnumerable.
                 IEnumerable<object> dataTable = data;
                 //Assign data source.
@@ -128,8 +144,18 @@ namespace Examination_System_Web_App.Controllers
                 {
                     pdfGrid.Columns[i].Format = stringFormat;
                 }
+                pdfGrid.Columns[3].Width = 150;
+                // Renaming Table Headers 
+                PdfGridRow header = pdfGrid.Headers[0];
+
+                header.Cells[0].Value = "ID";
+                header.Cells[1].Value = "First Name";
+                header.Cells[2].Value = "Last Name";
+                header.Cells[3].Value = "Email";
+                header.Cells[4].Value = "Age";
+                header.Cells[5].Value = "Gender";
                 //Draw grid to the page of PDF document.
-                pdfGrid.Draw(page, new Syncfusion.Drawing.PointF(10, 150), layoutFormat);
+                pdfGrid.Draw(page, new Syncfusion.Drawing.PointF(10, 200), layoutFormat);
                 //Write the PDF document to stream.
                 MemoryStream stream = new MemoryStream();
                 doc.Save(stream);
@@ -167,7 +193,13 @@ namespace Examination_System_Web_App.Controllers
                 //Set the standard font.
                 PdfFont font = new PdfStandardFont(PdfFontFamily.Courier, 25);
                 //Draw the text.
-                graphics.DrawString("Courses Info List", font, PdfBrushes.Black, new PointF(graphics.ClientSize.Width / 5, 50));
+                graphics.DrawString("Courses Info List", font, PdfBrushes.Black, new PointF(graphics.ClientSize.Width / 5, 100));
+
+                // Adding ITI Image 
+                FileStream imageStream = new FileStream("wwwroot/images/iti.png", FileMode.Open, FileAccess.Read);
+                PdfBitmap image = new PdfBitmap(imageStream);
+                //Draw the image
+                graphics.DrawImage(image, 0, 0, 100, 100);
 
                 //Add list to IEnumerable.
                 IEnumerable<object> dataTable = data;
@@ -193,8 +225,16 @@ namespace Examination_System_Web_App.Controllers
                 {
                     pdfGrid.Columns[i].Format = stringFormat;
                 }
+                // Renaming Table Headers 
+                PdfGridRow header = pdfGrid.Headers[0];
+
+                header.Cells[0].Value = "Course Name";
+                header.Cells[1].Value = "Dept Name";
+                header.Cells[2].Value = "Number Of Students";
+
+
                 //Draw grid to the page of PDF document.
-                pdfGrid.Draw(page, new Syncfusion.Drawing.PointF(10, 150), layoutFormat);
+                pdfGrid.Draw(page, new Syncfusion.Drawing.PointF(10, 200), layoutFormat);
                 //Write the PDF document to stream.
                 MemoryStream stream = new MemoryStream();
                 doc.Save(stream);

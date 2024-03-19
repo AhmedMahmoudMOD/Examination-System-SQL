@@ -10,8 +10,6 @@
 
         public string std_email { get; set; }
 
-        public string std_password { get; set; }
-
         public int? std_age { get; set; }
 
         public string std_gender { get; set; }
