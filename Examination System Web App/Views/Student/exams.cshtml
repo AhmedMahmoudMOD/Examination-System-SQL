@@ -9,7 +9,7 @@
 }
 
 <form method="post" asp-action="show_exam" asp-route-stdid = "@stdid">
-    @if (deptList.Count() == 0)
+    @if (deptList.Count() > 0)
     {
         <select name="id" asp-items="deptList" class="form-select form-select-lg mb-3" aria-label="Large select example">
         </select>
