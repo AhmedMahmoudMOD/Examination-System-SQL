@@ -5,22 +5,25 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Examination_System_Web_App.Controllers
 {
-	public class StudentController : Controller
-	{
-		public static int counter = 0;
-		IStudentRepository stdrepo;
-		IExamRepository examrepo;
-		public StudentController(IStudentRepository _studentrepo, IExamRepository _examrepo)
-		{
-			stdrepo = _studentrepo;
-			examrepo = _examrepo;
-		}
-		public IActionResult Index(int? id)
-		{
-			var model = stdrepo.GetStudent(id.Value);
-			return View(model);
-		}
-
+    public class StudentController : Controller
+    {
+        public static int counter = 0;
+        IStudentRepository stdrepo;
+        IExamRepository examrepo;
+        IStudentCourseRepository studentcourserepo;
+        public StudentController(IStudentRepository _studentrepo , IExamRepository _examrepo , IStudentCourseRepository _studentcourserepo)
+        {
+            stdrepo = _studentrepo;
+            examrepo = _examrepo;
+           studentcourserepo = _studentcourserepo;
+        }
+        public IActionResult Index(int? id)
+        {
+            var model = studentcourserepo.GetStudentDegrees(id.Value);
+            ViewBag.student =  stdrepo.GetStudent(id.Value);
+            return View(model);
+        }
+		//comment
 		public IActionResult exams(int? id)
 		{
 			if (id == null)
