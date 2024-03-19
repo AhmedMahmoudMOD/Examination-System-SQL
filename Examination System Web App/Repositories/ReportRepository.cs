@@ -35,6 +35,14 @@ namespace Examination_System_Web_App.Repositories
             return date;
         }
 
+        public IQueryable<StudentGradesReportVM> GetStdGrades (int stdId)
+        {
+            var date = db.Database.SqlQuery<StudentGradesReportVM>($"sp_GetAllStudentGrades {stdId}");
+
+            return date;
+
+        }
+
 
     }
 }

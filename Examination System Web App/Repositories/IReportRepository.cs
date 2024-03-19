@@ -9,5 +9,7 @@ namespace Examination_System_Web_App.Repositories
         IQueryable<StudentPerDeptReportVM> GetStudentPerDeptReport(int deptNo);
 
         IQueryable<InstCoursesReport> GetCoursesReport(int InsId);
+
+        IQueryable<StudentGradesReportVM> GetStdGrades(int stdId);
     }
 }
