@@ -13,7 +13,7 @@ namespace Examination_System_Web_App.Repositories
 
         public Student GetStudent(int id)
         {
-            var model = db.Students.Include(x=>x.Std_courses).ThenInclude(r=>r.crs).FirstOrDefault(x => x.std_id == id);
+            var model = db.Students.Include(x=>x.Std_courses).ThenInclude(r=>r.crs).FirstOrDefault(x => x.std_id == id );
             return model;
         }
 
