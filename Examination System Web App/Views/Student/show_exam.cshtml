@@ -1,6 +1,8 @@
 ﻿@model IEnumerable<Question>
 @{
 	int old = ViewBag.old;
+	Dictionary<int, int> studentAnswers = new Dictionary<int, int>();
+
 	Layout = null;
 }
 
@@ -43,7 +45,8 @@
 		<!-- Page content-->
 		<div class="container-fluid">
 			<form method="post" class="my-5 fs-4">
-
+				<input type="number" hidden name="stdid" value="@ViewBag.stdid" />
+				<input type="number" hidden name="examid" value="@ViewBag.examid" />
 				@foreach (Question q in Model)
 				{
 					if (old == q.q_id)
@@ -61,7 +64,7 @@
 							@foreach (Choice c in q.Choices)
 							{
 								<div>
-									<input type="radio" name="@q.q_id" value="@c.ch_no" />
+									<input type="radio" name="studentAnswers.@q.q_id" value="@c.ch_no" />
 									<label>@c.ch_text  </label>
 								</div>
 							}
