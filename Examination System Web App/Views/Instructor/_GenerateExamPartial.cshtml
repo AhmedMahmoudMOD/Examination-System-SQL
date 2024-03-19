@@ -1,7 +1,5 @@
 ﻿@model Examination_System_Web_App.View_Models.ExamGenVM
- @* @{
-     Layout = "_LayoutBS";
- } *@
+ 
 
 <div class="row container-fluid mt-4">
     <div>
@@ -34,13 +32,13 @@
                 <span asp-validation-for="exam_duration" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Sumbit" class="btn btn-success" />
+                <input type="submit" value="Submit" class="btn btn-success" />
             </div>
         </form>
     </div>
 </div>
+@section Scripts{
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
 
-
-@section Scripts {
-    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
