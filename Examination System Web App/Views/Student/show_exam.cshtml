@@ -55,12 +55,12 @@
 					}
 					old = q.q_id;
 					{ ViewBag.counter++; }
-					<div class="card">
-						<div class="card-header">
+					<div class="card mb-4 border-4">
+						<div class="bg-danger text-white card-header">
 							@ViewBag.counter-  @q.q_text
 						</div>
 
-						<div class="card-body bg-danger text-white">
+						<div class="card-body border-2 ">
 							@foreach (Choice c in q.Choices)
 							{
 								<div>
