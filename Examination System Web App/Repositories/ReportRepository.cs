@@ -43,6 +43,12 @@ namespace Examination_System_Web_App.Repositories
 
         }
 
+        public IQueryable<AnsweReportsVM> GetAsnwer (int std_id , int exam_id)
+        {
+            var model = db.Database.SqlQuery<AnsweReportsVM>($"sp_GetStdAnswerPerEaxm {std_id} , {exam_id}");
+            return model;
+        }
+
 
     }
 }

@@ -23,7 +23,7 @@ namespace Examination_System_Web_App.Controllers
             ViewBag.student =  stdrepo.GetStudent(id.Value);
             return View(model);
         }
-		//comment
+		//comment new things
 		public IActionResult exams(int? id)
 		{
 			if (id == null)
@@ -32,6 +32,7 @@ namespace Examination_System_Web_App.Controllers
 			}
 			int dept_no = (int)stdrepo.GetStudent(id.Value).dept_no;
 			var model = examrepo.GetAllForDepartmentToday(dept_no, id.Value);
+			ViewBag.pastexams = examrepo.GetAllForPastExams(dept_no, id.Value);
 			//return Content($"{id.Value}");
 			if (model == null)
 			{
