@@ -23,7 +23,7 @@ namespace Examination_System_Web_App.Controllers
             ViewBag.student =  stdrepo.GetStudent(id.Value);
             return View(model);
         }
-
+		//comment
 		public IActionResult exams(int? id)
 		{
 			if (id == null)
