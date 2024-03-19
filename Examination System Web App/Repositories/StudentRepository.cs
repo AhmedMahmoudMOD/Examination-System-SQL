@@ -47,5 +47,21 @@ namespace Examination_System_Web_App.Repositories
 
 		//	return result;
 		//}
+		public void SumbitAnswers(int exam_id, int std_id, Dictionary<int, int> StdAnswers)
+		{
+			foreach (var item in StdAnswers)
+			{
+				var UpdatedData = new SqlParameter("@UpdatedData", $"answer ={item.Value} ");
+				var condition = new SqlParameter("@condition", $"std_id ={std_id} AND exam_id = {exam_id} And q_id = {item.Key}");
+
+				db.Database.ExecuteSqlRaw("EXEC sp_StudentAnswer_Update @UpdatedData, @condition", UpdatedData, condition);
+			}
+		}
+		public void ExamCorrection(int ExamID, int StudentID)
+		{
+			var ExamIDParam = new SqlParameter("@ExamID", ExamID);
+			var StudentIDParam = new SqlParameter("@StudentID", StudentID);
+			db.Database.ExecuteSqlRaw("EXEC sp_CorrectExam @ExamID, @StudentID", ExamIDParam, StudentIDParam);
+		}	
 	}
 }
