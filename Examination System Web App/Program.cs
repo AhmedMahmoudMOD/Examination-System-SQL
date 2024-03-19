@@ -11,7 +11,10 @@ namespace Examination_System_Web_App
             var builder = WebApplication.CreateBuilder(args);
 
             // Add services to the container.
+            //commit 
             builder.Services.AddControllersWithViews();
+
+            Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("Mgo+DSMBMAY9C3t2UFhhQlJBfV5AQmBIYVp/TGpJfl96cVxMZVVBJAtUQF1hTX5Qd01jW39ccnNXRmZV");
 
             builder.Services.AddDbContext<ExamSysContext>(optionsBuilder =>
             {
@@ -22,6 +25,10 @@ namespace Examination_System_Web_App
             builder.Services.AddScoped<IInstructorRepository, InstructorRepository>();
             builder.Services.AddScoped<IStudentCourseRepository, StudentCourseRepository>();
             builder.Services.AddScoped<IChoiceRepository, ChoiceRepository>();
+            builder.Services.AddScoped<IStudentRepository, StudentRepository>();
+            builder.Services.AddScoped<IExamRepository, ExamRepository>();
+            builder.Services.AddScoped<IReportRepository, ReportRepository>();
+            builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();  
 
             var app = builder.Build();
 
