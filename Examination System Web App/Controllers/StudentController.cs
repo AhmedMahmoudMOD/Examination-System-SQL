@@ -7,14 +7,17 @@ namespace Examination_System_Web_App.Controllers
     {
         IStudentRepository stdrepo;
         IExamRepository examrepo;
-        public StudentController(IStudentRepository _studentrepo , IExamRepository _examrepo)
+        IStudentCourseRepository studentcourserepo;
+        public StudentController(IStudentRepository _studentrepo , IExamRepository _examrepo , IStudentCourseRepository _studentcourserepo)
         {
             stdrepo = _studentrepo;
             examrepo = _examrepo;
+           studentcourserepo = _studentcourserepo;
         }
         public IActionResult Index(int? id)
         {
-            var model = stdrepo.GetStudent(id.Value);
+            var model = studentcourserepo.GetStudentDegrees(id.Value);
+            ViewBag.student =  stdrepo.GetStudent(id.Value);
             return View(model);
         }
 
