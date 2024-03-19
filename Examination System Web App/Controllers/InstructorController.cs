@@ -100,18 +100,6 @@ namespace Examination_System_Web_App.Controllers
            
         }
 
-<<<<<<< HEAD
-        public IActionResult CreateExam()
-        {
-            return View();
-        }
-
-        public IActionResult AddQuestion()
-        {
-            return View();
-        }
-
-=======
         public IActionResult GenerateExam(int crsId, int deptNo)
         {
             ViewBag.CourseID = crsId;
@@ -152,6 +140,5 @@ namespace Examination_System_Web_App.Controllers
             ViewBag.Students = departmentRepository.GetStudentsPerDept(stDeptNo);
             return PartialView("_StudentsTablePartial");
         }
->>>>>>> origin/main
     }
 }
