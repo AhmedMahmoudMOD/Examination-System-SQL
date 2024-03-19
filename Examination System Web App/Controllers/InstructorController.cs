@@ -12,13 +12,17 @@ namespace Examination_System_Web_App.Controllers
         private readonly IStudentCourseRepository studentCourseRepository;
         private readonly IQuestionRepository questionRepository;
         private readonly IChoiceRepository choiceRepository;
+        private readonly IExamRepository examRepository;
+        private readonly IDepartmentRepository departmentRepository;
 
-        public InstructorController(IInstructorRepository instructorRepository , IStudentCourseRepository studentCourseRepository , IQuestionRepository questionRepository , IChoiceRepository choiceRepository)
+        public InstructorController(IInstructorRepository instructorRepository , IStudentCourseRepository studentCourseRepository , IQuestionRepository questionRepository , IChoiceRepository choiceRepository,IExamRepository examRepository , IDepartmentRepository departmentRepository)
         {
             this.instructorRepository = instructorRepository;
             this.studentCourseRepository = studentCourseRepository;
             this.questionRepository = questionRepository;
             this.choiceRepository = choiceRepository;
+            this.examRepository = examRepository;
+            this.departmentRepository = departmentRepository;
         }
         public IActionResult Index()
         {
@@ -94,6 +98,47 @@ namespace Examination_System_Web_App.Controllers
                 return View("AddQuestion", question);
             }
            
+        }
+
+        public IActionResult GenerateExam(int crsId, int deptNo)
+        {
+            ViewBag.CourseID = crsId;
+            ViewBag.DeptNo = deptNo;
+            return PartialView("_GenerateExamPartial");
+        }
+
+        [HttpPost]
+        public async Task <IActionResult> GenerateExam (ExamGenVM exam)
+        {
+            if(ModelState.IsValid)
+            {
+               var res = await examRepository.ExamGeneration(exam.crsId, exam.deptNo,exam.exam_name,exam.mcqNo,exam.tfNo,exam.exam_duration,exam.exam_date);
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                ViewBag.CouresID = exam.crsId;
+                ViewBag.DeptNo = exam.deptNo;
+                return View("_GenerateExamPartial",exam);
+            }
+        }
+
+        public IActionResult GetStudents()
+        {
+            int InsID = 1;
+            var Depts = instructorRepository.GetDepartments(InsID);
+            ViewBag.Depts = Depts;
+            int stDeptNo = Depts[0].dept_no;
+            ViewBag.Students = departmentRepository.GetStudentsPerDept(stDeptNo);
+            return View("Students");
+        }
+
+        public IActionResult RenderStudents(int deptNo)
+        {
+
+            int stDeptNo = deptNo;
+            ViewBag.Students = departmentRepository.GetStudentsPerDept(stDeptNo);
+            return PartialView("_StudentsTablePartial");
         }
     }
 }
