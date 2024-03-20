@@ -430,7 +430,7 @@ namespace Examination_System_Web_App.Controllers
                 //Set the standard font.
                 PdfFont font = new PdfStandardFont(PdfFontFamily.Courier, 25);
                 //Draw the text.
-                graphics.DrawString("Questions List", font, PdfBrushes.Black, new PointF(graphics.ClientSize.Width / 5, 100));
+                graphics.DrawString("Questions List", font, PdfBrushes.Black, new PointF(graphics.ClientSize.Width / 4, 100));
 
                 // Adding ITI Image 
                 FileStream imageStream = new FileStream("wwwroot/images/iti.png", FileMode.Open, FileAccess.Read);
