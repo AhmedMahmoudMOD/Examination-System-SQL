@@ -1,0 +1,47 @@
+﻿@model List<Exam>
+
+<div>
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>
+                    ID
+                </th>
+                <th>
+                    Name
+                </th>
+                <th>
+                    Date
+                </th>
+                <th>
+                    Duration
+                </th>
+                <th>
+
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @item.exam_id
+                    </td>
+                    <td>
+                        @item.exam_name
+                    </td>
+                    <td>
+                        @item.exam_date
+                    </td>
+                    <td>
+                        @item.exam_duration
+                    </td>
+                    <td>
+                        <a class="btn btn-dark" asp-action="GenExamQuestionsReport" asp-controller="Report" asp-route-examId="@item.exam_id">Report</a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>

@@ -4,11 +4,13 @@
     Layout = "_LayoutStudent";
     SelectList deptList = new SelectList(Model, "exam_id", "crs.crs_name");
     int stdid = (int)ViewBag.stdid;
+    List<Exam> li = ViewBag.pastexams as List<Exam>;
+    SelectList deptListpast = new SelectList(li, "exam_id", "crs.crs_name");
     ViewData["stdid"] = stdid;
 
 }
 
-<form method="post" asp-action="show_exam" asp-route-stdid = "@stdid">
+<form method="post" asp-action="show_exam" asp-route-stdid = "@stdid" class="mb-5">
     @if (deptList.Count() > 0)
     {
         <select name="id" asp-items="deptList" class="form-select form-select-lg mb-3" aria-label="Large select example">
@@ -22,3 +24,20 @@
     }
 
 </form>
+
+<div >
+    <form method="post" asp-action="GenAsnwerReport" asp-controller="Report" asp-route-stdid="@stdid">
+    @if (deptListpast.Count() > 0)
+    {
+        <select name="past_id" asp-items="deptListpast" class="form-select form-select-lg mb-3" aria-label="Large select example">
+
+        </select>
+        <input type="submit" value="generate report" class="btn btn-outline-dark m-auto" />
+    }
+    else
+    {
+        <h1 class="text-center">He/she/they/them didn't took any exams</h1>
+    }
+    </form>
+
+</div>

@@ -1,7 +1,9 @@
 ﻿using Examination_System_Web_App.Models;
 using Examination_System_Web_App.View_Models;
+using Microsoft.Data.SqlClient;
 using Microsoft.EntityFrameworkCore;
 using NuGet.Protocol;
+using System.Data;
 
 namespace Examination_System_Web_App.Repositories
 {
@@ -41,6 +43,41 @@ namespace Examination_System_Web_App.Repositories
 
             return date;
 
+        }
+
+        public IQueryable<AnsweReportsVM> GetAsnwer (int std_id , int exam_id)
+        {
+            var model = db.Database.SqlQuery<AnsweReportsVM>($"sp_GetStdAnswerPerEaxm {std_id} , {exam_id}");
+            return model;
+        }
+
+
+        public DataTable GenExamQuestionsReport(int examId)
+        {
+            var dt = new DataTable();
+
+            using (var command = db.Database.GetDbConnection().CreateCommand())
+            {
+                command.CommandText = "sp_GetAllChoicsPerQuetionRename";
+                command.CommandType = CommandType.StoredProcedure;
+                SqlParameter dbParameter = new();
+                dbParameter.ParameterName = "id";
+                dbParameter.DbType = DbType.Int32;
+                dbParameter.Value = examId;
+                command.Parameters.Add(dbParameter);
+                if (command.Connection.State != ConnectionState.Open)
+                {
+                    command.Connection.Open();
+                }
+
+                using (var reader = command.ExecuteReader())
+                {
+                    dt.Load(reader);
+
+                    return dt;
+                }
+            
+            }
         }
 
 

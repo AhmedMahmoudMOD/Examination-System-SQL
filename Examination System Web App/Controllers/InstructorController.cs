@@ -140,5 +140,12 @@ namespace Examination_System_Web_App.Controllers
             ViewBag.Students = departmentRepository.GetStudentsPerDept(stDeptNo);
             return PartialView("_StudentsTablePartial");
         }
+
+        public IActionResult GetExams(int crsId, int deptNo)
+        {
+            var list = examRepository.GetByCourseAndDept(crsId, deptNo);
+
+            return PartialView("_ExamsPartial", list);
+        }
     }
 }
