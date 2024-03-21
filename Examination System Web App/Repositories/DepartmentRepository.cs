@@ -21,5 +21,11 @@ namespace Examination_System_Web_App.Repositories
             return list;
 
         }
+
+        public Department GetBySupId(int supId)
+        {
+            var dept = db.Departments.Include(d=>d.Students).SingleOrDefault(d=>d.sup_id == supId);
+            return dept;
+        }
     }
 }

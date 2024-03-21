@@ -1,0 +1,25 @@
+﻿
+@{
+    ViewData["Title"] = "Index";
+    Layout = "~/Views/Shared/_LayoutSuper.cshtml";
+}
+
+@model List<Student>
+
+<div class="card mt-5">
+    <div class="card-header">
+        Students
+    </div>
+    <div class="card-body">
+        <button class="btn btn-primary">Add New Student</button>
+        <ejs-grid id="GridStd" dataSource="@Model" gridLines="None" allowEd allowPaging=true allowSorting=true toolbar="@(new List<string>() { "Search"})">
+            <e-grid-pagesettings pageSize="2"></e-grid-pagesettings>
+            <e-grid-columns>
+                <e-grid-column field="std_id" headerText="ID" textAlign="Right" width="30" textAlign="Center"></e-grid-column>
+                <e-grid-column field="std_fname" headerText="First Name" width="130" textAlign="Center"></e-grid-column>
+                <e-grid-column field="std_lname" headerText="Last Name" width="130" textAlign="Center"></e-grid-column>
+                <e-grid-column field="std_email" headerText="Email" width="150" textAlign="Center"></e-grid-column>
+            </e-grid-columns>
+        </ejs-grid>
+    </div>
+</div>

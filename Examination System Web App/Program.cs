@@ -1,6 +1,7 @@
 using Examination_System_Web_App.Models;
 using Examination_System_Web_App.Repositories;
 using Microsoft.EntityFrameworkCore;
+using Newtonsoft.Json;
 
 namespace Examination_System_Web_App
 {
@@ -28,7 +29,13 @@ namespace Examination_System_Web_App
             builder.Services.AddScoped<IStudentRepository, StudentRepository>();
             builder.Services.AddScoped<IExamRepository, ExamRepository>();
             builder.Services.AddScoped<IReportRepository, ReportRepository>();
-            builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();  
+            builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();
+
+            JsonConvert.DefaultSettings = () => new JsonSerializerSettings
+            {
+                Formatting = Newtonsoft.Json.Formatting.Indented,
+                ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore
+            };
 
             var app = builder.Build();
 
