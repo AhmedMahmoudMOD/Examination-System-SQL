@@ -20,10 +20,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Models\" />
-  </ItemGroup>
-
-  <ItemGroup>
     <Content Update="wwwroot\images\iti.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

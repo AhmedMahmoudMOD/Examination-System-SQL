@@ -38,6 +38,8 @@ public partial class ExamSysContext : DbContext
     public virtual DbSet<Student_answer> Student_answers { get; set; }
 
     public virtual DbSet<Topic> Topics { get; set; }
+    public virtual DbSet<User> Users { get; set; }
+    public virtual DbSet<Role> Roles { get; set; }  
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see https://go.microsoft.com/fwlink/?LinkId=723263.
@@ -45,6 +47,7 @@ public partial class ExamSysContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
+
         modelBuilder.Entity<Choice>(entity =>
         {
             entity.HasKey(e => new { e.q_id, e.ch_no }).HasName("pk_choice");
@@ -252,6 +255,15 @@ public partial class ExamSysContext : DbContext
             entity.HasOne(d => d.crs).WithMany(p => p.Topics)
                 .HasForeignKey(d => d.crs_id)
                 .HasConstraintName("FK__Topic__crs_id__6754599E");
+        });
+        modelBuilder.Entity<Role>(r =>
+        {
+            r.HasData(new List<Role>()
+            {
+                new Role() { Id = 1, RoleName = "Admin" },
+                new Role() { Id = 2, RoleName = "Instructor" },
+                new Role() { Id = 3, RoleName = "Student" }
+            });
         });
 
         OnModelCreatingPartial(modelBuilder);
