@@ -61,6 +61,5 @@ namespace Examination_System_Web_App.Controllers
             await HttpContext.SignOutAsync();
             return RedirectToAction("Login");
         }
-
     }
 }
