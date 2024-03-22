@@ -9,5 +9,7 @@ namespace Examination_System_Web_App.Repositories
         public List<Course> GetCourses(int insId, int deptNo);
 
         List<Department> GetDepartments(int insId);
+
+        Instructor GetInstructor(int id);
     }
 }
