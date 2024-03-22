@@ -1,4 +1,6 @@
-﻿@{
+﻿@model Examination_System_Web_App.View_Models.LoginViewModel;
+
+@{
     Layout = null;
 }
 
@@ -48,16 +50,16 @@
             <h3 class="mt-2" style="color:#a1272d;">ITI Exam System</h3>
         </div>
         <form class="mt-3" asp-action="StudentLogin">
-            <h3 class="text-center">Login</h3>
+            <h5 class="text-center">Login as Student</h5>
             <div asp-validation-summary="All"></div>
             <div class="mb-3">
-                <label for="exampleInputEmail1" class="form-label">Email address</label>
-                <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                <label asp-for="Email" class="form-label">Email address</label>
+                <input asp-for="Email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
                 <div id="emailHelp" class="form-text">We'll never share your email with anyone else.</div>
             </div>
             <div class="mb-3">
-                <label for="exampleInputPassword1" class="form-label">Password</label>
-                <input type="password" class="form-control" id="exampleInputPassword1">
+                <label asp-for="Password" class="form-label">Password</label>
+                <input asp-for ="Password" class="form-control" id="exampleInputPassword1">
             </div>
 
             <button type="submit" class="btn">Login</button>
