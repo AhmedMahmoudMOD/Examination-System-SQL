@@ -4,6 +4,7 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.CodeAnalysis.CSharp;
+using Microsoft.EntityFrameworkCore;
 using System.Security.Claims;
 
 namespace Examination_System_Web_App.Controllers
@@ -33,7 +34,7 @@ namespace Examination_System_Web_App.Controllers
             {
                 return View(model);
             }
-            var user= ExamSystem.Users.FirstOrDefault(x => x.Email == model.Email && x.Password == model.Password);
+            var user= ExamSystem.Users.Include(u => u.Roles).FirstOrDefault(x => x.Email == model.Email && x.Password == model.Password);
             if (user == null)
             {
                 ModelState.AddModelError("", "Invalid Email or Password");
@@ -44,11 +45,17 @@ namespace Examination_System_Web_App.Controllers
             //there is error here with null exception
 
             Claim claim2 = new Claim(ClaimTypes.Name, user.Name);
+            List <Claim> RolesClaim = new List<Claim>();
+            foreach (var role in user.Roles)
+            {
+                RolesClaim.Add(new Claim(ClaimTypes.Role, role.RoleName));
+            }
             // we will make card to store the claims
             //ClaimsIdentity identity = new ClaimsIdentity(new[] { claim1, claim2 }, "cookie");
             ClaimsIdentity identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme);
             identity.AddClaim(claim1);
             identity.AddClaim(claim2);
+            identity.AddClaims(RolesClaim);
             ClaimsPrincipal principal = new ClaimsPrincipal(identity);
             principal.AddIdentity(identity);
             //save the data in the cookie

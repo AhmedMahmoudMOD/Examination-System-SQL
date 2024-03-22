@@ -1,6 +1,7 @@
 ﻿using Examination_System_Web_App.Models;
 using Examination_System_Web_App.Repositories;
 using Examination_System_Web_App.View_Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.ModelBinding;
 
@@ -24,6 +25,7 @@ namespace Examination_System_Web_App.Controllers
             this.examRepository = examRepository;
             this.departmentRepository = departmentRepository;
         }
+        [Authorize(Roles = "Admin")]
         public IActionResult Index()
         {
             int InsID = 1;
