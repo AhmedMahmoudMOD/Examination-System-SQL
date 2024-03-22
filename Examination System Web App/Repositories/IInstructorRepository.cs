@@ -10,6 +10,6 @@ namespace Examination_System_Web_App.Repositories
 
         List<Department> GetDepartments(int insId);
 
-        Instructor GetInstructor(int id);
+        Instructor GetInstructorLogin(string email, string pass);
     }
 }

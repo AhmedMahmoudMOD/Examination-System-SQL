@@ -14,6 +14,8 @@ namespace Examination_System_Web_App
             //commit 
             builder.Services.AddControllersWithViews();
 
+            builder.Services.AddSession();
+
             Syncfusion.Licensing.SyncfusionLicenseProvider.RegisterLicense("Mgo+DSMBMAY9C3t2UFhhQlJBfV5AQmBIYVp/TGpJfl96cVxMZVVBJAtUQF1hTX5Qd01jW39ccnNXRmZV");
 
             builder.Services.AddDbContext<ExamSysContext>(optionsBuilder =>
@@ -40,6 +42,8 @@ namespace Examination_System_Web_App
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseSession();
 
             app.UseAuthorization();
 

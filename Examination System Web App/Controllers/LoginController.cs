@@ -29,8 +29,21 @@ namespace Examination_System_Web_App.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult InstLogin(int id)
+        public IActionResult InstLogin(string email , string pass)
         {
+            //1 modelstate is valid 
+            //2
+             var inst = instructorRepository.GetInstructorLogin(email, pass);
+
+            // check if null
+            // if not null
+            // set session instID = inst.ins_id
+            // redirect to Instructor / index
+
+            // if null 
+            // retrun the same view with error
+
+            
             return View();
         }
     }
