@@ -25,9 +25,28 @@ namespace Examination_System_Web_App.Controllers
         }
 
         [HttpPost]
-        public IActionResult StudentLogin(int id)
+        public IActionResult StudentLogin(LoginViewModel loginViewModel)
         {
-            return View();
+            //first check if model state is valid
+            if (!ModelState.IsValid)
+            {
+                return View(loginViewModel);
+            }
+            //second perform the Authentication
+            var student = studentRepository.GetStudentLogin(loginViewModel.Email, loginViewModel.Password);
+            //if Authentication success
+            if (student != null)
+            {
+                //set the session
+                HttpContext.Session.SetInt32("stdID", student.std_id);
+                return RedirectToAction("Index", "Student");
+            }
+            //if Authentication failed
+            else
+            {
+                ModelState.AddModelError("Email", "Invalid Email or Password");
+                return View(loginViewModel);
+            }
         }
         [HttpPost]
         public IActionResult InstLogin(LoginViewModel loginViewModel)
