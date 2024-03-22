@@ -1,4 +1,5 @@
-﻿using Examination_System_Web_App.Repositories;
+﻿using Examination_System_Web_App.Models;
+using Examination_System_Web_App.Repositories;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Examination_System_Web_App.Controllers
@@ -25,5 +26,19 @@ namespace Examination_System_Web_App.Controllers
             var list = dept.Students.ToList();
             return View(list);
         }
+
+        public IActionResult AddStudent(Student student)
+        {
+            if (ModelState.IsValid)
+            {
+                studentRepository.Add(student);
+                return RedirectToAction("Index");
+            }else
+            {
+                return RedirectToAction("Index");
+            }
+        }
+
+
     }
 }

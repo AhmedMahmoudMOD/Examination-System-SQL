@@ -1,0 +1,43 @@
+﻿@model Student
+
+<div class="container-fluid mt-4">
+    <div class="container-fluid">
+        <form asp-action="AddStudent" class="row">
+            <div asp-validation-summary="All"></div>
+            <input type="hidden" name="dept_no" value="@Model.dept_no"  />
+            <div class="form-group col-5 mb-3">
+                <label asp-for="std_fname" class="control-label mb-2"></label>
+                <input asp-for="std_fname" class="form-control" />
+                <span asp-validation-for="std_fname" class="text-danger"></span>
+            </div>
+            <div class="form-group col-5 mb-3">
+                <label asp-for="std_lname" class="control-label mb-2"></label>
+                <input asp-for="std_lname" class="form-control" />
+                <span asp-validation-for="std_lname" class="text-danger"></span>
+            </div>
+            <div class="form-group col-5 mb-3">
+                <label asp-for="std_email" class="control-label mb-2"></label>
+                <input asp-for="std_email" class="form-control" />
+                <span asp-validation-for="std_email" class="text-danger"></span>
+            </div>
+            <div class="form-group col-5 mb-3">
+                <label asp-for="std_password" class="control-label mb-2"></label>
+                <input asp-for="std_password" class="form-control" />
+                <span asp-validation-for="std_password" class="text-danger"></span>
+            </div>
+            <div class="form-group col-5 mb-3">
+                <label asp-for="std_age" class="control-label mb-2"></label>
+                <input asp-for="std_age" class="form-control" />
+                <span asp-validation-for="std_age" class="text-danger"></span>
+            </div>
+            <div class="form-group  col-5 mb-3">
+                <label asp-for="std_gender" class="control-label mb-2"></label>
+                <input asp-for="std_gender" class="form-control" />
+                <span asp-validation-for="std_gender" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Submit" class="btn btn-success" />
+            </div>
+        </form>
+    </div>
+</div>

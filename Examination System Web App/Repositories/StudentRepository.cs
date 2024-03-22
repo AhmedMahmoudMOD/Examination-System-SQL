@@ -62,6 +62,12 @@ namespace Examination_System_Web_App.Repositories
 			var ExamIDParam = new SqlParameter("@ExamID", ExamID);
 			var StudentIDParam = new SqlParameter("@StudentID", StudentID);
 			db.Database.ExecuteSqlRaw("EXEC sp_CorrectExam @ExamID, @StudentID", ExamIDParam, StudentIDParam);
+		}
+		
+		public void Add(Student student)
+		{
+			db.Students.Add(student);
+			db.SaveChanges();
 		}	
 	}
 }
