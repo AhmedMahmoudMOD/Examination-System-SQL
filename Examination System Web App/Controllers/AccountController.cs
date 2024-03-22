@@ -55,9 +55,12 @@ namespace Examination_System_Web_App.Controllers
             await HttpContext.SignInAsync(principal);
             // redirect to the home page
             return RedirectToAction("Index", "Home");
-
-
-
         }
+        public async Task<IActionResult> Logout()
+        {
+            await HttpContext.SignOutAsync();
+            return RedirectToAction("Login");
+        }
+
     }
 }
