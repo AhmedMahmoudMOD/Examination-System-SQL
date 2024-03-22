@@ -1,4 +1,5 @@
 ﻿using Examination_System_Web_App.Repositories;
+using Examination_System_Web_App.View_Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace Examination_System_Web_App.Controllers
@@ -29,22 +30,29 @@ namespace Examination_System_Web_App.Controllers
             return View();
         }
         [HttpPost]
-        public IActionResult InstLogin(string email , string pass)
+        public IActionResult InstLogin(LoginViewModel loginViewModel)
         {
-            //1 modelstate is valid 
-            //2
-             var inst = instructorRepository.GetInstructorLogin(email, pass);
-
-            // check if null
-            // if not null
-            // set session instID = inst.ins_id
-            // redirect to Instructor / index
-
-            // if null 
-            // retrun the same view with error
-
+            //first check if model state is valid
+            if (!ModelState.IsValid)
+            {
+                return View(loginViewModel);
+            }
+            //second perform the Authentication
+            var instructor = instructorRepository.GetInstructorLogin(loginViewModel.Email, loginViewModel.Password);
             
-            return View();
+            //if Authentication success
+            if (instructor != null)
+            {
+                //set the session
+                HttpContext.Session.SetInt32("instID", instructor.ins_id);
+                return RedirectToAction("Index", "Instructor");
+            }
+            //if Authentication failed
+            else
+            {
+                ModelState.AddModelError("Email", "Invalid Email or Password");
+                return View(loginViewModel);
+            }
         }
     }
 }
