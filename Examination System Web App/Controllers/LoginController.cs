@@ -44,8 +44,11 @@ namespace Examination_System_Web_App.Controllers
             //if Authentication failed
             else
             {
-                ModelState.AddModelError("Email", "Invalid Email or Password");
-                return View(loginViewModel);
+                TempData["ErrorMessage"] = "Invalid email or password.";
+                return RedirectToAction(nameof(StudentLogin)); 
+
+                //ModelState.AddModelError("Password", "Invalid Email or Password");
+                //return View(loginViewModel);
             }
         }
         [HttpPost]
@@ -69,9 +72,15 @@ namespace Examination_System_Web_App.Controllers
             //if Authentication failed
             else
             {
-                ModelState.AddModelError("Email", "Invalid Email or Password");
+                ModelState.AddModelError("Password", "Invalid Email or Password");
                 return View(loginViewModel);
             }
+        }
+        //Logout
+        public IActionResult Logout()
+        {
+            HttpContext.Session.Clear();
+            return RedirectToAction("Index", "Home");
         }
     }
 }
