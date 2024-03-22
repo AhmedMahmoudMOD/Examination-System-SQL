@@ -1,5 +1,6 @@
 using Examination_System_Web_App.Models;
 using Examination_System_Web_App.Repositories;
+using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.EntityFrameworkCore;
 
 namespace Examination_System_Web_App
@@ -29,7 +30,11 @@ namespace Examination_System_Web_App
             builder.Services.AddScoped<IExamRepository, ExamRepository>();
             builder.Services.AddScoped<IReportRepository, ReportRepository>();
             builder.Services.AddScoped<IDepartmentRepository, DepartmentRepository>();  
-
+            builder.Services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme).AddCookie(options =>
+            {
+                options.LoginPath = "/Account/Login";
+                options.AccessDeniedPath = "/Account/AccessDenied";
+            });
             var app = builder.Build();
 
             // Configure the HTTP request pipeline.
@@ -40,6 +45,8 @@ namespace Examination_System_Web_App
             app.UseStaticFiles();
 
             app.UseRouting();
+
+            app.UseAuthentication();
 
             app.UseAuthorization();
 

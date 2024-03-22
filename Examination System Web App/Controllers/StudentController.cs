@@ -1,4 +1,5 @@
 ﻿using Examination_System_Web_App.Repositories;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Server.HttpSys;
 using Microsoft.EntityFrameworkCore;
@@ -17,6 +18,7 @@ namespace Examination_System_Web_App.Controllers
             examrepo = _examrepo;
            studentcourserepo = _studentcourserepo;
         }
+		[Authorize]
         public IActionResult Index(int? id)
         {
             var model = studentcourserepo.GetStudentDegrees(id.Value);
