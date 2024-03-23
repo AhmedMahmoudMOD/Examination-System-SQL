@@ -10,8 +10,6 @@ namespace Examination_System_Web_App.Repositories
 		public void ExamCorrection(int ExamID, int StudentID);
 
 		void Add(Student student);
-
-
-
+        void Update(Student std);
     }
 }

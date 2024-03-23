@@ -9,7 +9,7 @@ namespace Examination_System_Web_App.Models;
 public partial class Student
 {
     public int std_id { get; set; }
-
+    
     public string std_fname { get; set; }
 
     public string std_lname { get; set; }

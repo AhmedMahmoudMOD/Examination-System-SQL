@@ -69,5 +69,11 @@ namespace Examination_System_Web_App.Repositories
 			db.Students.Add(student);
 			db.SaveChanges();
 		}	
+
+		public void Update(Student student)
+		{
+			db.Students.Update(student);
+			db.SaveChanges();
+		}
 	}
 }

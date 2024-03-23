@@ -1,6 +1,8 @@
 ﻿using Examination_System_Web_App.Models;
 using Examination_System_Web_App.Repositories;
+using Examination_System_Web_App.View_Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 
 namespace Examination_System_Web_App.Controllers
 {
@@ -26,7 +28,14 @@ namespace Examination_System_Web_App.Controllers
             var list = dept.Students.ToList();
             return View(list);
         }
+        public IActionResult AddStudent(int deptNo)
+        {
+            ViewBag.deptNo = deptNo;
+            return View();
+        }
 
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public IActionResult AddStudent(Student student)
         {
             if (ModelState.IsValid)
@@ -35,7 +44,28 @@ namespace Examination_System_Web_App.Controllers
                 return RedirectToAction("Index");
             }else
             {
+                return View(student);
+            }
+        }
+        public IActionResult UpdateStudent(int stdId)
+        {
+            var model = studentRepository.GetStudent(stdId);
+            ViewBag.Depts = departmentRepository.GetAll();
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult UpdateStudent(Student student)
+        {
+            if (ModelState.IsValid)
+            {
+                studentRepository.Update(student);
                 return RedirectToAction("Index");
+            }
+            else
+            {
+                return View(student);
             }
         }
 
