@@ -51,7 +51,7 @@
 								@foreach (Choice c in q.Choices)
 								{
 									<div>
-										<input type="radio" name="studentAnswers.@q.q_id" value="@c.ch_no" />
+										<input type="radio" name="studentAnswers.@q.q_id" value="@c.ch_no??0" />
 										<label>@c.ch_text  </label>
 									</div>
 								}
