@@ -11,6 +11,12 @@ namespace Examination_System_Web_App.Repositories
             this.db = db;
         }
 
+        public Instructor GetInstructorLogin(string email, string pass)
+        {
+            var target = db.Instructors.SingleOrDefault(d => d.ins_email == email && d.ins_password==pass);
+            return target;
+        }
+
         public Instructor GetByIDWithDepartments(int id)
         {
             var target = db.Instructors.Include(i=>i.Departments).SingleOrDefault(d=>d.ins_id == id);
