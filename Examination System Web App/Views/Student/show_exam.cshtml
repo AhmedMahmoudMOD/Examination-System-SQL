@@ -2,7 +2,7 @@
 @{
 	int old = ViewBag.old;
 	Dictionary<int, int> studentAnswers = new Dictionary<int, int>();
-
+	Exam exam = ViewBag.exam;
 	Layout = null;
 }
 
@@ -22,58 +22,89 @@
 <body>
 	<div id="page-content-wrapper">
 		<!-- Top navigation-->
-		<nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
+		<nav class="text-dark navbar fs-4 fw-bold navbar-expand-lg fixed-top navbar-light bg-light border-bottom">
 			<div class="container-fluid">
-				<button class="btn btn-light" id="sidebarToggle"><i class="fa-solid fa-bars"></i></button>
-				<button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i class="fa-solid fa-bars"></i></button>
-				<div class="collapse navbar-collapse" id="navbarSupportedContent">
-					<ul class="navbar-nav ms-auto mt-2 mt-lg-0">
-						<li class="nav-item active"><a class="nav-link" href="#!">Home</a></li>
-						<li class="nav-item dropdown">
-							<a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Dropdown</a>
-							<div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
-								<a class="dropdown-item" href="#!">Log out</a>
-								<a class="dropdown-item" href="#!">Another action</a>
-								<div class="dropdown-divider"></div>
-								<a class="dropdown-item" href="#!">Something else here</a>
-							</div>
-						</li>
-					</ul>
-				</div>
+				<div>Exam name: @exam.exam_name</div>
+				<div>Time Remaining: <span id="timer"></span></div>
 			</div>
 		</nav>
 		<!-- Page content-->
 		<div class="container-fluid">
 			<form method="post" class="my-5 fs-4">
-				<input type="number" hidden name="stdid" value="@ViewBag.stdid" />
-				<input type="number" hidden name="examid" value="@ViewBag.examid" />
-				@foreach (Question q in Model)
-				{
-					if (old == q.q_id)
+				<div class="container-fluid">
+					<input type="number" hidden name="stdid" value="@ViewBag.stdid" />
+					<input type="number" hidden name="examid" value="@ViewBag.examid" />
+					@foreach (Question q in Model)
 					{
-						continue;
-					}
-					old = q.q_id;
-					{ ViewBag.counter++; }
-					<div class="card">
-						<div class="card-header">
-							@ViewBag.counter-  @q.q_text
-						</div>
+						if (old == q.q_id)
+						{
+							continue;
+						}
+						old = q.q_id;
+						{ ViewBag.counter++; }
+						<div class="card mb-4 border-4 border-secondary">
+							<div class="bg-danger text-white card-header">
+								@ViewBag.counter-  @q.q_text
+							</div>
 
-						<div class="card-body bg-danger text-white">
-							@foreach (Choice c in q.Choices)
-							{
-								<div>
-									<input type="radio" name="studentAnswers.@q.q_id" value="@c.ch_no" />
-									<label>@c.ch_text  </label>
-								</div>
-							}
+							<div class="card-body border-2 ">
+								@foreach (Choice c in q.Choices)
+								{
+									<div>
+										<input type="radio" name="studentAnswers.@q.q_id" value="@c.ch_no" />
+										<label>@c.ch_text  </label>
+									</div>
+								}
+							</div>
 						</div>
-					</div>
-				}
-				<button type="submit" asp-action="ExamSumbitted" class="btn mt-3 fs-4 fw-bold col-12 btn-outline-dark">Submit</button>
+					}
+				</div>
+				<button type="submit" id="SubmitBtn" asp-action="ExamSumbitted" class="btn mt-3 fs-4 fw-bold col-12 btn-outline-danger">Submit</button>
 			</form>
 		</div>
 	</div>
+	<script>
+		var Duration = @exam.exam_duration* 60;
+
+		var timer = setInterval(function () {
+			var hours = Math.floor(Duration / 3600);
+			var minutes = Math.floor((Duration % 3600) / 60);
+			var seconds = Duration % 60;
+
+			document.getElementById('timer').innerText = formatTime(hours) + ':' + formatTime(minutes) + ':' + formatTime(seconds);
+
+			Duration--;
+		}, 1000);
+
+		function formatTime(time) {
+			return (time < 10 ? '0' : '') + time;
+		}
+		setTimeout(function () {
+			console.log('Time is up!');
+			document.getElementById('SubmitBtn').click();
+			clearInterval(timer);
+		}, Duration * 1000);
+
+		// function submitExam() {
+		// 	var stdid = @ViewBag.stdid;
+		// 	var examid = @ViewBag.examid;
+
+		// 	$.ajax({
+		// 		url: '/Student/ExamSumbitted',
+		// 		type: 'POST',
+		// 		data: {
+		// 			stdid: stdid,
+		// 			examid: examid
+		// 			// studentAnswers: {}
+		// 		}
+		// 	}).done(function () {
+		// 		$('#SubmitBtn').click();
+		// 	}).fail(function (jqXHR, textStatus, errorThrown) {
+		// 		// AJAX request failed
+		// 		console.error('AJAX request failed:', textStatus, errorThrown);
+		// 	});
+		// }
+	</script>
+
 </body>
 </html>
