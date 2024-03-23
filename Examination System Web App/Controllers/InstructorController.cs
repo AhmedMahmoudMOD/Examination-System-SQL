@@ -31,7 +31,7 @@ namespace Examination_System_Web_App.Controllers
 
             if (InsID == null)
             {
-                return 
+                return Unauthorized();
             }
             else
             {
