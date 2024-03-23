@@ -39,7 +39,7 @@ namespace Examination_System_Web_App.Controllers
             {
                 //set the session
                 HttpContext.Session.SetInt32("stdID", student.std_id);
-                return RedirectToAction("Index", "Student");
+                return RedirectToAction("Index", "Student", new { id = student.std_id });
             }
             //if Authentication failed
             else
