@@ -44,15 +44,17 @@
 						{ ViewBag.counter++; }
 						<div class="card mb-4 border-4 border-secondary">
 							<div class="bg-danger text-white card-header">
-								@ViewBag.counter-  @q.q_text
+								@ViewBag.counter-  @q.q_text 
+								<div class="float-end"> Marks: @q.q_score</div>
 							</div>
 
 							<div class="card-body border-2 ">
+								<input type="radio" name="studentAnswers.@q.q_id" hidden value="0" checked="true"/>
 								@foreach (Choice c in q.Choices)
 								{
 									<div>
 										<input type="radio" name="studentAnswers.@q.q_id" value="@c.ch_no" />
-										<label>@c.ch_text  </label>
+										<label>@c.ch_text</label>
 									</div>
 								}
 							</div>
