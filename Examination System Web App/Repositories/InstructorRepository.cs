@@ -61,5 +61,21 @@ namespace Examination_System_Web_App.Repositories
                 throw new Exception("Exception");
             }
         }
+
+        public List<Instructor> GetAll()
+        {
+            return db.Instructors.ToList();
+        }
+
+        public void Add(Instructor instructor)
+        {
+            db.Instructors.Add(instructor);
+            db.SaveChanges();
+        }
+
+        public void Update(Instructor instructor) { 
+            db.Instructors.Update(instructor);
+            db.SaveChanges();  
+        }
     }
 }

@@ -70,5 +70,51 @@ namespace Examination_System_Web_App.Controllers
         }
 
 
+        public IActionResult GetInstructors()
+        {
+            var list = instructorRepository.GetAll();
+            return View("Instructors",list);
+        }
+
+        public IActionResult AddInstructor()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult AddInstructor(Instructor instructor)
+        {
+            if (ModelState.IsValid)
+            {
+                instructorRepository.Add(instructor);
+                return RedirectToAction("GetInstructors");
+            }
+            else
+            {
+                return View(instructor);
+            }
+        }
+
+        public IActionResult UpdateInstructor(int insId)
+        {
+            var model = instructorRepository.GetByIDWithDepartments(insId);
+            return View(model);
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public IActionResult UpdateInstructor(Instructor instructor)
+        {
+            if (ModelState.IsValid)
+            {
+                instructorRepository.Update(instructor);
+                return RedirectToAction("GetInstructors");
+            }
+            else
+            {
+                return View(instructor);
+            }
+        }
     }
 }

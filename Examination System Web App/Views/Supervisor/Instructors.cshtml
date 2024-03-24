@@ -1,0 +1,36 @@
+﻿
+@{
+    ViewData["Title"] = "Instructors";
+    Layout = "~/Views/Shared/_LayoutSuper.cshtml";
+}
+@model List<Instructor>
+<div class="card mt-5">
+    <div class="card-header">
+        Instructors
+    </div>
+    <div class="card-body">
+        <div class="d-flex mt-2 mb-3 flex-row justify-content-end">
+            <a asp-action="AddInstructor"><i class="fa-solid fa-2xl fa-user-plus" style="color: #1b1c1d;"></i></a>
+        </div>
+        <ejs-grid id="GridStd" dataSource="@Model" gridLines="None" allowEd allowPaging=true allowSorting=true toolbar="@(new List<string>() { "Search"})">
+            <e-grid-pagesettings pageSize="10"></e-grid-pagesettings>
+            <e-grid-columns>
+                <e-grid-column field="ins_id" headerText="ID" textAlign="Right" width="30" textAlign="Center"></e-grid-column>
+                <e-grid-column field="ins_fname" headerText="First Name" width="130" textAlign="Center"></e-grid-column>
+                <e-grid-column field="ins_lname" headerText="Last Name" width="130" textAlign="Center"></e-grid-column>
+                <e-grid-column field="ins_email" headerText="Email" width="150" textAlign="Center"></e-grid-column>
+                <e-grid-column headerText="Actions" width="30" template="#actionColumnTemplate"></e-grid-column>
+
+            </e-grid-columns>
+        </ejs-grid>
+    </div>
+</div>
+
+<script id="actionColumnTemplate" type="text/x-template">
+    <div class="d-flex flex-row justify-content-start">
+        <a class="btn btn-sm no-a-decoration" href="/Supervisor/UpdateInstructor?insId=${ins_id}">
+        <i class="fa-solid fa-pen" style="color: #19191a;"></i></a>
+    </div>
+</script>
+
+

@@ -30,6 +30,7 @@ namespace Examination_System_Web_App.Models
         public int? std_age { get; set; }
 
         [Display(Name = "Gender")]
+        [StringLength(1,ErrorMessage = "Gender Must be inputed as a Single Character M or F")]
         public string std_gender { get; set; }
 
         [Display(Name = "Department Number")]
