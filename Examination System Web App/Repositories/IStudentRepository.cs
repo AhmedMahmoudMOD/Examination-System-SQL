@@ -9,6 +9,9 @@ namespace Examination_System_Web_App.Repositories
 		public void SumbitAnswers(int exam_id, int std_id, Dictionary<int, int> StdAnswers);
 		public void ExamCorrection(int ExamID, int StudentID);
 
+		Student GetStudentLogin(string email, string pass);
 
-	}
+
+
+    }
 }
