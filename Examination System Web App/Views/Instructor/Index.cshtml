@@ -4,6 +4,12 @@
     SelectList deptList = new SelectList(ViewBag.Depts, "dept_no", "dept_name");
 
 }
+<style>
+    .btn-theme {
+        background-color: #a1272d;
+        color: #fff;
+    }
+</style>
 
 <div id="Mainsec">
 <div class="mb-3 mt-4">
@@ -38,11 +44,11 @@
                             @item.crs_name
                         </td>
                         <td>
-                            <a  onclick="getGrades(deptSelector.value,@item.crs_id)" class="btn btn-primary">Results</a>
+                                <a onclick="getGrades(deptSelector.value,@item.crs_id)" class="btn btn-theme">Results</a>
                             <a asp-action="AddQuestion" asp-route-crsId="@item.crs_id" class="btn btn-dark">Add Question</a>
-                            <a onclick="genExam(deptSelector.value,@item.crs_id)" class="btn btn-success">Create Exam</a>
-                            <a onclick="getExams(deptSelector.value,@item.crs_id)" class="btn btn-outline-dark">Exams List</a>
-                            <a asp-action="GenTopicsReport" asp-controller="Report" asp-route-crsId="@item.crs_id" class="btn btn-outline-dark">Couse Topics</a>
+                            <a onclick="genExam(deptSelector.value,@item.crs_id)" class="btn btn-theme">Create Exam</a>
+                            <a onclick="getExams(deptSelector.value,@item.crs_id)" class="btn btn-dark">Exams List</a>
+                            <a asp-action="GenTopicsReport" asp-controller="Report" asp-route-crsId="@item.crs_id" class="btn btn-theme">Couse Topics</a>
                         </td>
                     </tr>
                 }

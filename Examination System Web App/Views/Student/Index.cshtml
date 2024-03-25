@@ -7,14 +7,14 @@
     string color;
 }
 
-<h1 class="text-center"> @std.std_fname @std.std_lname Degrees</h1>
+<h1 class="text-center mt-3 mb-4"> @std.std_fname @std.std_lname Degrees</h1>
 <div>
 <table class="table table-striped table-hover table-bordered">
     <thead>
     <tr>
         <td>Subject</td>
         <td>Degree</td>
-        <td>status</td>
+        <td>Status</td>
     </tr>
     </thead>
     <tbody>
@@ -22,7 +22,7 @@
             {
                 @foreach (var item in Model)
                 {
-                    if (@item.grade <= 50)
+                    if (@item.grade < 50)
                     {
                         color = "bg-danger text-white";
                     }
@@ -41,7 +41,7 @@
             else
             {
                 <tr>
-                    <td colspan="3"> this student didn't took any exam yet</td>
+                    <td colspan="3">You didn't take any exam yet</td>
                 </tr>
             }
            
@@ -54,7 +54,7 @@
 {
     <script>
         $("tbody tr ").css("font-weight", "bold").css("color", "white");
-        $("h1").css("color", "red");
+        $("h1").css("color", "black");
     </script>
 }
 

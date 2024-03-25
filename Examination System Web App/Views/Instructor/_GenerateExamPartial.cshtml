@@ -1,5 +1,11 @@
 ﻿@model Examination_System_Web_App.View_Models.ExamGenVM
  
+<style>
+    .btn-theme {
+        background-color: #a1272d;
+        color: #fff;
+    }
+</style>
 
 <div class="row container-fluid mt-4">
     <div>
@@ -32,7 +38,7 @@
                 <span asp-validation-for="exam_duration" class="text-danger"></span>
             </div>
             <div class="form-group">
-                <input type="submit" value="Submit" class="btn btn-success" />
+                <input type="submit" value="Submit" class="btn btn-theme" />
             </div>
         </form>
     </div>

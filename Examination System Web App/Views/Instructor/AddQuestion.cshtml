@@ -6,6 +6,28 @@
 }
 @model QuestionWithChoicesVM
 
+<style>
+    .btn-theme {
+        background-color: #a1272d;
+        color: #fff;
+    }
+
+    .nav-link {
+        color : black
+    }
+
+    .nav-link:hover{
+        color : dimgrey;
+    }
+
+    .nav-pills .nav-link.active, .nav-pills .show > .nav-link {
+        background-color: #a1272d;
+        color: #fff;
+    }
+    
+</style>
+
+
 <div class="main-container container-fluid mt-4">
 
         <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
@@ -74,7 +96,7 @@
                         <span asp-validation-for="Q_Score" class="text-danger"></span>
 
                 </div>
-                    <input type="submit" class="btn  btn-lg btn-primary" value="Confirm" style="margin-top:10px;">
+                    <input type="submit" class="btn  btn-lg btn-theme" value="Confirm" style="margin-top:10px;">
                 </form>
             </div>
 
@@ -104,7 +126,7 @@
                     <input type="text" asp-for="Q_Score" class="form-control">
                     <span asp-validation-for="Q_Score" class="text-danger"></span>
                 </div>
-                <input type="submit" class="btn  btn-lg btn-primary" value="Confirm" style="margin-top:10px;">
+                <input type="submit" class="btn  btn-lg btn-theme" value="Confirm" style="margin-top:10px;">
                 </form>
             </div>
 

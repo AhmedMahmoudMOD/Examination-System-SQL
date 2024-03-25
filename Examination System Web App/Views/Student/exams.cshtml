@@ -10,17 +10,27 @@
 
 }
 
+<style>
+	.btn-theme {
+		background-color: #a1272d;
+		color: #fff;
+	}
+</style>
+
+
 <form method="post" asp-action="show_exam" asp-route-stdid="@stdid" class="mb-5">
 	@if (deptList.Count() > 0)
 	{
-		<select name="id" asp-items="deptList" class="form-select form-select-lg mb-3" aria-label="Large select example">
+		<h1 class="text-center mb-3 mt-3">Exams due today</h1>
+
+		<select name="id" asp-items="deptList" class="form-select form-select-lg mb-3 mt-3" aria-label="Large select example">
 		</select>
 		<br />
-		<input type="submit" value="enter exam" class="btn btn-success m-auto" />
+		<input type="submit" value="enter exam" class="btn btn-theme btn-lg m-auto" />
 	}
 	else
 	{
-		<h1 class="text-center">There are no exams Due for today</h1>
+		<h1 class="text-center mb-3 mt-3">There are no exams due for today</h1>
 	}
 
 </form>
@@ -28,13 +38,14 @@
 	<form method="post" asp-action="GenAsnwerReport" asp-controller="Report" asp-route-stdid="@stdid">
 		@if (deptListpast.Count() > 0)
 		{
-			<select name="past_id" asp-items="deptListpast" class="form-select form-select-lg mb-3" aria-label="Large select example">
+			<h1 class="text-center mb-3 mt-3">Past Exams</h1>
+			<select name="past_id" asp-items="deptListpast" class="form-select form-select-lg mb-3 mt-3" aria-label="Large select example">
 			</select>
-			<input type="submit" value="generate report" class="btn btn-outline-dark m-auto" />
+			<input type="submit" value="Exam Report with Model Answers" class="btn btn-lg btn-dark m-auto" />
 		}
 		else
 		{
-			<h1 class="text-center">He/she/they/them didn't took any exams</h1>
+			<h1 class="text-center mb-3 mt-3">You didn't take any exam yet</h1>
 		}
 	</form>
 </div>

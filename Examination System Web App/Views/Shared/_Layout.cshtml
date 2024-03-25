@@ -3,7 +3,8 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - Examination_System_Web_App</title>
+    <title>@ViewData["Title"] - Examination System</title>
+    <link rel="shortcut icon" type="image/x-icon" href="/images/iti.png" />
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/Examination_System_Web_App.styles.css" asp-append-version="true" />
@@ -12,12 +13,11 @@
     <header>
         <nav class="navbar navbar-expand-lg navbar-light bg-light border-bottom">
             <div class="container-fluid">
+                <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">ITI</a>
                 <button class="btn btn-light" id="sidebarToggle"><i class="fa-solid fa-bars"></i></button>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation"><i class="fa-solid fa-bars"></i></button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav ms-auto mt-2 mt-lg-0">
-                        <li class="nav-item active"><a class="nav-link" href="#!">Home</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#!">Link</a></li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" id="navbarDropdown" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Login</a>
                             <div class="dropdown-menu dropdown-menu-end" aria-labelledby="navbarDropdown">
