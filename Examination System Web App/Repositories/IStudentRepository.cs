@@ -13,6 +13,4 @@ namespace Examination_System_Web_App.Repositories
         void Update(Student std);
 
         Student GetStudentLogin(string email, string pass);
-    }
-		
 }

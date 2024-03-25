@@ -23,16 +23,32 @@ namespace Examination_System_Web_App.Controllers
 			examrepo = _examrepo;
 			studentcourserepo = _studentcourserepo;
 		}
+		//comment
 		public IActionResult Index(int? id)
 		{
-			var model = studentcourserepo.GetStudentDegrees(id.Value);
+			int? stdid = HttpContext.Session.GetInt32("stdID");
+
+			if (stdid == null)
+			{
+                return Unauthorized();
+            }
+
+            var model = studentcourserepo.GetStudentDegrees(id.Value);
 			ViewBag.student = stdrepo.GetStudent(id.Value);
 			return View(model);
 		}
 		//comment new things
 		public IActionResult exams(int? id)
 		{
-			if (id == null)
+
+            int? stdid = HttpContext.Session.GetInt32("stdID");
+
+            if (stdid == null)
+            {
+                return Unauthorized();
+            }
+
+            if (id == null)
 			{
 				return RedirectToAction("index", "login");
 			}
@@ -47,9 +63,19 @@ namespace Examination_System_Web_App.Controllers
 			ViewBag.stdid = stdrepo.GetStudent(id.Value).std_id;
 			return View(model);
 		}
+
+
 		public IActionResult show_exam(int id, int stdid)
 		{
-			Exam exam = examrepo.getById(id);
+
+            int? stdid1 = HttpContext.Session.GetInt32("stdID");
+
+            if (stdid1 == null)
+            {
+                return Unauthorized();
+            }
+
+            Exam exam = examrepo.getById(id);
 			ViewBag.exam = exam;
 			ViewBag.ExamDuration = (int)exam.exam_duration*60;
 			ViewBag.counter = counter;
@@ -66,7 +92,14 @@ namespace Examination_System_Web_App.Controllers
 		[HttpPost]
 		public IActionResult ExamSumbitted(int stdid, int examid, Dictionary<int, int> studentAnswers)
 		{
-			stdrepo.SumbitAnswers(examid, stdid, studentAnswers);
+            int? stdid1 = HttpContext.Session.GetInt32("stdID");
+
+            if (stdid1 == null)
+            {
+                return Unauthorized();
+            }
+
+            stdrepo.SumbitAnswers(examid, stdid, studentAnswers);
 			stdrepo.ExamCorrection(examid, stdid);
 			return RedirectToAction("exams", new { id = stdid });
 		}

@@ -37,6 +37,7 @@ namespace Examination_System_Web_App.Repositories
         {
             var degrees = db.Std_courses.Where(x => x.std_id == stdid && x.grade.HasValue).Select(x => x.crs_id).ToList();
 
+
             var model = db.Exams.Include(y => y.crs)
                 .Include(z => z.dept_noNavigation)
                 .Where(x => x.dept_no == id && x.exam_date.HasValue && degrees.Contains(x.crs_id.Value)).ToList();
