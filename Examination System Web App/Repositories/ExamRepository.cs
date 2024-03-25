@@ -18,6 +18,10 @@ namespace Examination_System_Web_App.Repositories
             var model = db.Exams.ToList();
             return model;
         }
+        public Exam getById (int _id)
+        {
+            return db.Exams.FirstOrDefault(x => x.exam_id == _id);
+        }
 
         public List<Exam> GetAllForDepartmentToday(int id, int stdid)
         {
@@ -25,7 +29,7 @@ namespace Examination_System_Web_App.Repositories
 
             var model = db.Exams.Include(y => y.crs)
                 .Include(z => z.dept_noNavigation)
-                .Where(x => x.dept_no == id && x.exam_date.HasValue && x.exam_date.Value.Date == DateTime.Today && !degrees.Contains(x.crs_id.Value)).ToList();
+                .Where(x => x.dept_no == id && x.exam_date.HasValue && x.exam_date.Value.Date == DateTime.Today && (!degrees.Contains(x.crs_id.Value))).ToList();
             return model;
         }
 

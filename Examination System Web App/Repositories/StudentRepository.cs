@@ -12,7 +12,13 @@ namespace Examination_System_Web_App.Repositories
 			db = _db;
 		}
 
-		public Student GetStudent(int id)
+        public Student GetStudentLogin(string email, string pass)
+        {
+            var target = db.Students.SingleOrDefault(d => d.std_email == email && d.std_password == pass);
+            return target;
+        }
+
+        public Student GetStudent(int id)
 		{
 			var model = db.Students.Include(x => x.Std_courses).ThenInclude(r => r.crs).FirstOrDefault(x => x.std_id == id);
 			return model;

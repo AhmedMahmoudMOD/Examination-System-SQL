@@ -14,5 +14,7 @@ namespace Examination_System_Web_App.Repositories
 
         void Add(Instructor instructor);
         void Update(Instructor instructor);
+
+        Instructor GetInstructorLogin(string email, string pass);
     }
 }
