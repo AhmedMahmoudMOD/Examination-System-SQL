@@ -72,9 +72,15 @@
 	<script>
 		document.getElementById('SubmitBtn').addEventListener('click', function (e) {
 			e.preventDefault();
+			var counter = 0;
+			document.querySelectorAll('input[type="radio"]').forEach(function (el) {
+				if (el.checked && el.value != 0) {
+					counter++;
+				}
+			});
 			swal({
 				title: "Are you sure?",
-				text: "Once submitted, you cannot undo this action!",
+				text: "Once submitted, you cannot undo this action!\n You Answered "+counter+" of 10 Questions" ,
 				icon: "warning",
 				buttons: true,
 				dangerMode: true,
