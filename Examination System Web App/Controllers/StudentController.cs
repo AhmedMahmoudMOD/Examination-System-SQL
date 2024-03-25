@@ -23,6 +23,7 @@ namespace Examination_System_Web_App.Controllers
 			examrepo = _examrepo;
 			studentcourserepo = _studentcourserepo;
 		}
+		//comment
 		public IActionResult Index(int? id)
 		{
 			int? stdid = HttpContext.Session.GetInt32("stdID");
