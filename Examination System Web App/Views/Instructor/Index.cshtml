@@ -41,6 +41,7 @@
                             <a  onclick="getGrades(deptSelector.value,@item.crs_id)" class="btn btn-primary">Results</a>
                             <a asp-action="AddQuestion" asp-route-crsId="@item.crs_id" class="btn btn-dark">Add Question</a>
                             <a onclick="genExam(deptSelector.value,@item.crs_id)" class="btn btn-success">Create Exam</a>
+                            <a onclick="getExams(deptSelector.value,@item.crs_id)" class="btn btn-outline-dark">Exams List</a>
                             <a asp-action="GenTopicsReport" asp-controller="Report" asp-route-crsId="@item.crs_id" class="btn btn-outline-dark">Couse Topics</a>
                         </td>
                     </tr>
@@ -82,6 +83,15 @@
         function genExam(deptNo, crsId) {
             $.ajax({
                 url: "/Instructor/GenerateExam",
+                data: { deptNo: deptNo, crsId: crsId },
+                success: function (result) {
+                    $("#Mainsec").html(result);
+                }
+            });
+        }
+        function getExams(deptNo, crsId) {
+            $.ajax({
+                url: "/Instructor/GetExams",
                 data: { deptNo: deptNo, crsId: crsId },
                 success: function (result) {
                     $("#Mainsec").html(result);

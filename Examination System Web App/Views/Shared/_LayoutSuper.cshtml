@@ -12,6 +12,9 @@
     <!-- Core theme CSS (includes Bootstrap)-->
     <link href="/css/styles.css" rel="stylesheet" />
     <link href="/css/BSLayout.css" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdn.syncfusion.com/ej2/25.1.35/fluent.css" />
+    <!-- Syncfusion ASP.NET Core controls scripts -->
+    <script src="https://cdn.syncfusion.com/ej2/25.1.35/dist/ej2.min.js"></script>
 </head>
 <body>
     <div class="d-flex" id="wrapper">
@@ -19,13 +22,12 @@
         <div class="border-end bg-white" id="sidebar-wrapper">
             <div class="sidebar-heading border-bottom bg-light">
                 <div class="d-flex flex-column align-items-center">
-                    <img src="https://internal.iti.gov.eg/assets/images/organization/iti-logo-text.png" width="200px" height="300px" />
+                    <img src="https://internal.iti.gov.eg/assets/images/organization/iti-logo-text.png" width="200px" height="250px" />
                 </div>
             </div>
             <div class="list-group list-group-flush">
-                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/Instructor/Index">Courses</a>
-                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/Instructor/GetStudents">Students</a>
-                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="#!">Reports</a>
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/Supervisor/Index">Students</a>
+                <a class="list-group-item list-group-item-action list-group-item-light p-3" href="/Supervisor/GetInstructors">Instructors</a>
             </div>
         </div>
         <!-- Page content wrapper-->
@@ -48,11 +50,6 @@
                                     <a class="dropdown-item" href="#!">Something else here</a>
                                 </div>
                             </li>
-                            <li class="nav-item">
-                                <form class="form-inline my-2 my-lg-0" asp-controller="Login" asp-action="Logout" method="post">
-                                    <button type="submit" class="btn btn-outline-danger my-2 my-sm-0">Logout</button>
-                                </form>
-                            </li>
                         </ul>
                     </div>
                 </div>
@@ -68,6 +65,7 @@
     <!-- Core theme JS-->
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="/js/scripts.js"></script>
+    <ejs-scripts></ejs-scripts>
     @await RenderSectionAsync("Scripts", required: false)
 </body>
 </html>

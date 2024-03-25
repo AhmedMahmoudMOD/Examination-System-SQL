@@ -2,13 +2,14 @@
 #nullable disable
 using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace Examination_System_Web_App.Models;
 
 public partial class Student
 {
     public int std_id { get; set; }
-
+    
     public string std_fname { get; set; }
 
     public string std_lname { get; set; }
@@ -22,10 +23,10 @@ public partial class Student
     public string std_gender { get; set; }
 
     public int? dept_no { get; set; }
-
+    
     public virtual ICollection<Std_course> Std_courses { get; set; } = new List<Std_course>();
-
+   
     public virtual ICollection<Student_answer> Student_answers { get; set; } = new List<Student_answer>();
-
+    
     public virtual Department dept_noNavigation { get; set; }
 }

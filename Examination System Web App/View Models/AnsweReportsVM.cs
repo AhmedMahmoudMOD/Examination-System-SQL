@@ -4,7 +4,7 @@
     {
 
         public string q_text { get; set; }
-        public string Student_Answer { get; set; }
+        public string? Student_Answer { get; set; }
         public string Model_answer { get; set; }
     }
 }

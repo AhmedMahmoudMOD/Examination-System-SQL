@@ -1,0 +1,63 @@
+﻿
+@{
+    ViewData["Title"] = "UpdateInstructor";
+    Layout = "~/Views/Shared/_LayoutSuper.cshtml";
+}
+
+<h3 class="mt-4">Update Instructor</h3>
+
+@model Instructor
+
+<div class="container-fluid mt-4">
+    <div class="container-fluid">
+        <form asp-action="UpdateInstructor" class="row">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <input type="hidden" name="ins_id" value="@Model.ins_id" />
+            <div class="form-group col-5 mb-3">
+                <label asp-for="ins_fname" class="control-label mb-2"></label>
+                <input asp-for="ins_fname" class="form-control" />
+                <span asp-validation-for="ins_fname" class="text-danger"></span>
+            </div>
+            <div class="form-group col-5 mb-3">
+                <label asp-for="ins_lname" class="control-label mb-2"></label>
+                <input asp-for="ins_lname" class="form-control" />
+                <span asp-validation-for="ins_lname" class="text-danger"></span>
+            </div>
+            <div class="form-group col-5 mb-3">
+                <label asp-for="ins_email" class="control-label mb-2"></label>
+                <input asp-for="ins_email" class="form-control" />
+                <span asp-validation-for="ins_email" class="text-danger"></span>
+            </div>
+            <div class="form-group col-5 mb-3">
+                <label asp-for="ins_password" class="control-label mb-2"></label>
+                <input asp-for="ins_password" class="form-control" />
+                <span asp-validation-for="ins_password" class="text-danger"></span>
+            </div>
+            <div class="form-group col-5 mb-3">
+                <label asp-for="ins_age" class="control-label mb-2"></label>
+                <input asp-for="ins_age" class="form-control" />
+                <span asp-validation-for="ins_age" class="text-danger"></span>
+            </div>
+            <div class="form-group  col-5 mb-3">
+                <label asp-for="ins_gender" class="control-label mb-2"></label>
+                <input asp-for="ins_gender" class="form-control" />
+                <span asp-validation-for="ins_gender" class="text-danger"></span>
+            </div>
+            <div class="form-group  col-5 mb-3">
+                <label asp-for="ins_salary" class="control-label mb-2"></label>
+                <input asp-for="ins_salary" class="form-control" />
+                <span asp-validation-for="ins_salary" class="text-danger"></span>
+            </div>
+
+            <div class="form-group">
+                <input type="submit" value="Submit" class="btn btn-success" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}
+

@@ -1,4 +1,5 @@
 ﻿using Examination_System_Web_App.View_Models;
+using System.Data;
 
 namespace Examination_System_Web_App.Repositories
 {
@@ -12,6 +13,8 @@ namespace Examination_System_Web_App.Repositories
 
         IQueryable<StudentGradesReportVM> GetStdGrades(int stdId);
         IQueryable<AnsweReportsVM> GetAsnwer(int std_id, int exam_id);
+
+        DataTable GenExamQuestionsReport(int examId);
 
     }
 }

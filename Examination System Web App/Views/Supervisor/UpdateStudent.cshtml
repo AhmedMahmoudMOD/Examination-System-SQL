@@ -1,0 +1,67 @@
+﻿@using Examination_System_Web_App.View_Models
+
+@{
+    ViewData["Title"] = "Update Student";
+    Layout = "~/Views/Shared/_LayoutSuper.cshtml";
+
+    var deptsList = new SelectList(ViewBag.Depts, "dept_no", "dept_name");
+}
+
+<h3 class="mt-4">Update Student</h3>
+
+@model Student
+
+<div class="container-fluid mt-4">
+    <div class="container-fluid">
+        <form asp-action="UpdateStudent" class="row">
+            <div asp-validation-summary="All" class="text-danger"></div>
+            <input type="hidden" name="std_id" value="@Model.std_id" />
+            <div class="form-group col-5 mb-3">
+                <label asp-for="std_fname" class="control-label mb-2"></label>
+                <input asp-for="std_fname" class="form-control" />
+                <span asp-validation-for="std_fname" class="text-danger"></span>
+            </div>
+            <div class="form-group col-5 mb-3">
+                <label asp-for="std_lname" class="control-label mb-2"></label>
+                <input asp-for="std_lname" class="form-control" />
+                <span asp-validation-for="std_lname" class="text-danger"></span>
+            </div>
+            <div class="form-group col-5 mb-3">
+                <label asp-for="std_email" class="control-label mb-2"></label>
+                <input asp-for="std_email" class="form-control" />
+                <span asp-validation-for="std_email" class="text-danger"></span>
+            </div>
+            <div class="form-group col-5 mb-3">
+                <label asp-for="std_password" class="control-label mb-2"></label>
+                <input asp-for="std_password" class="form-control" />
+                <span asp-validation-for="std_password" class="text-danger"></span>
+            </div>
+            <div class="form-group col-5 mb-3">
+                <label asp-for="std_age" class="control-label mb-2"></label>
+                <input asp-for="std_age" class="form-control" />
+                <span asp-validation-for="std_age" class="text-danger"></span>
+            </div>
+            <div class="form-group  col-5 mb-3">
+                <label asp-for="std_gender" class="control-label mb-2"></label>
+                <input asp-for="std_gender" class="form-control" />
+                <span asp-validation-for="std_gender" class="text-danger"></span>
+            </div>
+            <div class="form-group  col-5 mb-3">
+                <label asp-for="dept_no" class="control-label mb-2"></label>
+                <select class="form-control" asp-for="dept_no" asp-items="deptsList"></select>
+                <span asp-validation-for="dept_no" class="text-danger"></span>
+            </div>
+            
+            <div class="form-group">
+                <input type="submit" value="Submit" class="btn btn-success" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+}
+
+

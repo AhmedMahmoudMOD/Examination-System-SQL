@@ -14,6 +14,7 @@ namespace Examination_System_Web_App.Controllers
         private readonly IChoiceRepository choiceRepository;
         private readonly IExamRepository examRepository;
         private readonly IDepartmentRepository departmentRepository;
+        
 
         public InstructorController(IInstructorRepository instructorRepository , IStudentCourseRepository studentCourseRepository , IQuestionRepository questionRepository , IChoiceRepository choiceRepository,IExamRepository examRepository , IDepartmentRepository departmentRepository)
         {
@@ -26,21 +27,37 @@ namespace Examination_System_Web_App.Controllers
         }
         public IActionResult Index()
         {
-            int InsID = 1;
-            var Depts = instructorRepository.GetDepartments(InsID);
-            ViewBag.Depts = Depts;
-            int stDeptNo = Depts[0].dept_no;
-            ViewBag.Courses = instructorRepository.GetCourses(InsID,stDeptNo);
-            return View();
+            int? InsID = HttpContext.Session.GetInt32("instID");
+
+            if (InsID == null)
+            {
+                return Unauthorized();
+            }
+            else
+            {
+                var Depts = instructorRepository.GetDepartments(InsID.Value);
+                ViewBag.Depts = Depts;
+                int stDeptNo = Depts[0].dept_no;
+                ViewBag.Courses = instructorRepository.GetCourses(InsID.Value, stDeptNo);
+                return View();
+            }
         }
 
         public IActionResult RenderCourses(int deptNo)
         {
+            int? InsID = HttpContext.Session.GetInt32("instID");
 
-            int InsID = 1;
-            int stDeptNo = deptNo;
-            ViewBag.Courses = instructorRepository.GetCourses(InsID, stDeptNo);
-            return PartialView("_CoursesTablePartial");
+            if (InsID == null)
+            {
+                return Unauthorized();
+            }
+            else
+            {
+
+                int stDeptNo = deptNo;
+                ViewBag.Courses = instructorRepository.GetCourses(InsID.Value, stDeptNo);
+                return PartialView("_CoursesTablePartial");
+            }
         }
 
         public IActionResult GetCourseGrades(int crsId,int deptNo)
@@ -125,12 +142,20 @@ namespace Examination_System_Web_App.Controllers
 
         public IActionResult GetStudents()
         {
-            int InsID = 1;
-            var Depts = instructorRepository.GetDepartments(InsID);
-            ViewBag.Depts = Depts;
-            int stDeptNo = Depts[0].dept_no;
-            ViewBag.Students = departmentRepository.GetStudentsPerDept(stDeptNo);
-            return View("Students");
+            int? InsID = HttpContext.Session.GetInt32("instID");
+
+            if (InsID == null)
+            {
+                return Unauthorized();
+            }
+            else
+            {
+                var Depts = instructorRepository.GetDepartments(InsID.Value);
+                ViewBag.Depts = Depts;
+                int stDeptNo = Depts[0].dept_no;
+                ViewBag.Students = departmentRepository.GetStudentsPerDept(stDeptNo);
+                return View("Students");
+            }
         }
 
         public IActionResult RenderStudents(int deptNo)
@@ -139,6 +164,13 @@ namespace Examination_System_Web_App.Controllers
             int stDeptNo = deptNo;
             ViewBag.Students = departmentRepository.GetStudentsPerDept(stDeptNo);
             return PartialView("_StudentsTablePartial");
+        }
+
+        public IActionResult GetExams(int crsId, int deptNo)
+        {
+            var list = examRepository.GetByCourseAndDept(crsId, deptNo);
+
+            return PartialView("_ExamsPartial", list);
         }
     }
 }

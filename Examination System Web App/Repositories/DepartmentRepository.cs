@@ -12,6 +12,10 @@ namespace Examination_System_Web_App.Repositories
             this.db = db;
         }
 
+        public List<Department> GetAll()
+        {
+            return db.Departments.ToList();
+        }
         public List<Student> GetStudentsPerDept(int deptNo)
         {
             var dept = db.Departments.Include(d=>d.Students).SingleOrDefault(d=>d.dept_no == deptNo);
@@ -20,6 +24,12 @@ namespace Examination_System_Web_App.Repositories
 
             return list;
 
+        }
+
+        public Department GetBySupId(int supId)
+        {
+            var dept = db.Departments.Include(d=>d.Students).SingleOrDefault(d=>d.sup_id == supId);
+            return dept;
         }
     }
 }

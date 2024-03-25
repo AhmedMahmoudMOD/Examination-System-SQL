@@ -11,6 +11,12 @@ namespace Examination_System_Web_App.Repositories
             this.db = db;
         }
 
+        public Instructor GetInstructorLogin(string email, string pass)
+        {
+            var target = db.Instructors.SingleOrDefault(d => d.ins_email == email && d.ins_password==pass);
+            return target;
+        }
+
         public Instructor GetByIDWithDepartments(int id)
         {
             var target = db.Instructors.Include(i=>i.Departments).SingleOrDefault(d=>d.ins_id == id);
@@ -60,6 +66,22 @@ namespace Examination_System_Web_App.Repositories
             {
                 throw new Exception("Exception");
             }
+        }
+
+        public List<Instructor> GetAll()
+        {
+            return db.Instructors.ToList();
+        }
+
+        public void Add(Instructor instructor)
+        {
+            db.Instructors.Add(instructor);
+            db.SaveChanges();
+        }
+
+        public void Update(Instructor instructor) { 
+            db.Instructors.Update(instructor);
+            db.SaveChanges();  
         }
     }
 }
