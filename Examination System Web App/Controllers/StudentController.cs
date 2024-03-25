@@ -29,10 +29,10 @@ namespace Examination_System_Web_App.Controllers
 
 			if (stdid == null)
 			{
-                return Unauthorized();
-            }
+				return Unauthorized();
+			}
 
-            var model = studentcourserepo.GetStudentDegrees(id.Value);
+			var model = studentcourserepo.GetStudentDegrees(id.Value);
 			ViewBag.student = stdrepo.GetStudent(id.Value);
 			return View(model);
 		}
@@ -40,14 +40,14 @@ namespace Examination_System_Web_App.Controllers
 		public IActionResult exams(int? id)
 		{
 
-            int? stdid = HttpContext.Session.GetInt32("stdID");
+			int? stdid = HttpContext.Session.GetInt32("stdID");
 
-            if (stdid == null)
-            {
-                return Unauthorized();
-            }
+			if (stdid == null)
+			{
+				return Unauthorized();
+			}
 
-            if (id == null)
+			if (id == null)
 			{
 				return RedirectToAction("index", "login");
 			}
@@ -66,17 +66,16 @@ namespace Examination_System_Web_App.Controllers
 
 		public IActionResult show_exam(int id, int stdid)
 		{
+			int? stdid1 = HttpContext.Session.GetInt32("stdID");
 
-            int? stdid1 = HttpContext.Session.GetInt32("stdID");
+			if (stdid1 == null)
+			{
+				return Unauthorized();
+			}
 
-            if (stdid1 == null)
-            {
-                return Unauthorized();
-            }
-
-            Exam exam = examrepo.getById(id);
+			Exam exam = examrepo.getById(id);
 			ViewBag.exam = exam;
-			ViewBag.ExamDuration = (int)exam.exam_duration*60;
+			ViewBag.ExamDuration = (int)exam.exam_duration * 60;
 			ViewBag.counter = counter;
 			ViewBag.examid = id;
 			ViewBag.stdid = stdid;
@@ -91,14 +90,14 @@ namespace Examination_System_Web_App.Controllers
 		[HttpPost]
 		public IActionResult ExamSumbitted(int stdid, int examid, Dictionary<int, int> studentAnswers)
 		{
-            int? stdid1 = HttpContext.Session.GetInt32("stdID");
+			int? stdid1 = HttpContext.Session.GetInt32("stdID");
 
-            if (stdid1 == null)
-            {
-                return Unauthorized();
-            }
+			if (stdid1 == null)
+			{
+				return Unauthorized();
+			}
 
-            stdrepo.SumbitAnswers(examid, stdid, studentAnswers);
+			stdrepo.SumbitAnswers(examid, stdid, studentAnswers);
 			stdrepo.ExamCorrection(examid, stdid);
 			return RedirectToAction("exams", new { id = stdid });
 		}

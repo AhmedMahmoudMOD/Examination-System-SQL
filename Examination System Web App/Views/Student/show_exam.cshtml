@@ -30,7 +30,7 @@
 		</nav>
 		<!-- Page content-->
 		<div class="container-fluid">
-			<form method="post" class="my-5 fs-4">
+			<form id="MyForm" method="post" asp-action="ExamSumbitted" class="my-5 fs-4">
 				<div class="container-fluid">
 					<input type="number" hidden name="stdid" value="@ViewBag.stdid" />
 					<input type="number" hidden name="examid" value="@ViewBag.examid" />
@@ -44,12 +44,12 @@
 						{ ViewBag.counter++; }
 						<div class="card mb-4 border-4 border-secondary">
 							<div class="bg-danger text-white card-header">
-								@ViewBag.counter-  @q.q_text 
+								@ViewBag.counter-  @q.q_text
 								<div class="float-end"> Marks: @q.q_score</div>
 							</div>
 
 							<div class="card-body border-2 ">
-								<input type="radio" name="studentAnswers.@q.q_id" hidden value="0" checked="true"/>
+								<input type="radio" name="studentAnswers.@q.q_id" hidden value="0" checked="true" />
 								@foreach (Choice c in q.Choices)
 								{
 									<div>
@@ -61,10 +61,32 @@
 						</div>
 					}
 				</div>
-				<button type="submit" id="SubmitBtn" asp-action="ExamSumbitted" class="btn mt-3 fs-4 fw-bold col-12 btn-outline-danger">Submit</button>
+				<button type="submit" id="SubmitBtn" class="btn mt-3 fs-4 fw-bold col-12 btn-outline-danger">Submit</button>
 			</form>
 		</div>
 	</div>
+	<script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+	<script>import Swal from 'sweetalert2'</script>
+
+	<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+	<script>
+		document.getElementById('SubmitBtn').addEventListener('click', function (e) {
+			e.preventDefault();
+			swal({
+				title: "Are you sure?",
+				text: "Once submitted, you cannot undo this action!",
+				icon: "warning",
+				buttons: true,
+				dangerMode: true,
+			})
+				.then((willSubmit) => {
+					if (willSubmit) {
+						// If user clicks OK, submit the form
+						document.getElementById('MyForm').submit();
+					}
+				});
+		});
+	</script>
 	<script>
 		var Duration = @exam.exam_duration* 60;
 
@@ -86,27 +108,8 @@
 			document.getElementById('SubmitBtn').click();
 			clearInterval(timer);
 		}, Duration * 1000);
-
-		// function submitExam() {
-		// 	var stdid = @ViewBag.stdid;
-		// 	var examid = @ViewBag.examid;
-
-		// 	$.ajax({
-		// 		url: '/Student/ExamSumbitted',
-		// 		type: 'POST',
-		// 		data: {
-		// 			stdid: stdid,
-		// 			examid: examid
-		// 			// studentAnswers: {}
-		// 		}
-		// 	}).done(function () {
-		// 		$('#SubmitBtn').click();
-		// 	}).fail(function (jqXHR, textStatus, errorThrown) {
-		// 		// AJAX request failed
-		// 		console.error('AJAX request failed:', textStatus, errorThrown);
-		// 	});
-		// }
 	</script>
+
 
 </body>
 </html>
